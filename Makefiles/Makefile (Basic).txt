@@ -1,0 +1,29 @@
+## Project settings
+PROJECT = TestProgram
+MMCU    = atmega32
+AVRCC   = avr-g++
+AVRAR   = avr-ar
+OBJCOPY = avr-objcopy 
+
+## Source Directories
+AVRTEST_DIR = AVRTest
+
+## User Sources
+SOURCES = 
+
+## Compiler Flags
+CPPFLAGS = -I $(AVRTest_DIR)/include
+CXXFLAGS = -Wall -Wextra
+FLAGS = $(CPPFLAGS) $(CXXFLAGS)
+CMND = $(CXX) $(FLAGS)
+
+all: $(PROJECT).hex
+
+clean:
+	rm -rf $(PROJECT).out $(PROJECT).hex
+
+$(PROJECT).hex: $(PROJECT).out
+	$(OBJCOPY) -j .text -O ihex $^ $@
+
+$(PROJECT).out: $(SOURCES) $(AVRTEST_DIR)/src/AVRTestAll_main.cpp
+	$(AVRCC) $(FLAGS) -o $@ $^

@@ -1,0 +1,55 @@
+## Sources
+SOURCES = Temp2.cpp AVRTestAll.cpp
+
+## Directories
+
+## Test Compiler Flags
+CPPFLAGS =
+CXXFLAGS = -g -Wall -Wextra
+FLAGS = $(CPPFLAGS) $(CXXFLAGS)
+CMND = $(CXX) $(FLAGS)
+
+###############################################
+
+all: test
+
+run: clean all
+	./test
+
+debug: clean all
+	gdb test
+
+test: Temp2.o AVRTestAll.o
+	$(CMND) $^ -o $@
+
+clean:
+	rm -rf *.o *.dSYM test
+
+defines:
+	echo "main(){}" | $(CXX) -E -x c -dM - 
+ 
+####################################################################
+
+## Test Compilations
+
+AVRTestAll.o: AVRTestAll.cpp
+#AVRTest.o AVRTestCase.o AVRTestLog.o AVRTestRegistrar.o AVRTestSuite.o 
+	$(CMND) -c $^ -o $@
+
+Temp2.o: Temp2.cpp
+	$(CMND) -c $^ -o $@
+
+AVRTest.o: AVRTest.cpp
+	$(CMND) -c $^ -o $@
+ 
+AVRTestCase.o: AVRTestCase.cpp
+	$(CMND) -c $^ -o $@
+
+AVRTestLog.o: AVRTestLog.cpp
+	$(CMND) -c $^ -o $@
+
+AVRTestRegistrar.o: AVRTestRegistrar.cpp
+	$(CMND) -c $^ -o $@
+
+AVRTestSuite.o: AVRTestSuite.cpp
+	$(CMND) -c $^ -o $@
