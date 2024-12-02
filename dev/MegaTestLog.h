@@ -1,10 +1,10 @@
-// AVRTestLog
+// MegaTestLog
 
-#ifndef AVRTESTLOG_h
-#define AVRTESTLOG_h
+#ifndef MEGATESTLOG_h
+#define MEGATESTLOG_h
 
 #include <inttypes.h>
-#include "AVRTest_Configuration.h"
+#include "MegaTest_Configuration.h"
 
 #ifndef AVR_PRINT_BASE
 	#ifdef AVR_PRINT_BIN
@@ -21,16 +21,16 @@
 	#endif
 #endif // AVR_PRINT_BASE
 
-namespace AVRTest {
+namespace MegaTest {
 
-class AVRTestLog {
+class MegaTestLog {
 	bool caseOpen;
 	bool testOpen;
 	uint16_t failed_cases;
 	uint16_t failed_tests;
 
 public:
-	AVRTestLog();
+	MegaTestLog();
 	void print(char c);
 	void print(const char* message);
 	void print(unsigned char c);
@@ -64,7 +64,7 @@ private:
 };
 
 template<typename T>
-void AVRTestLog::expected(T ex, T ac) {
+void MegaTestLog::expected(T ex, T ac) {
 	testFailed();
 	print("> Expected: ");
 	print(ex);
@@ -75,7 +75,7 @@ void AVRTestLog::expected(T ex, T ac) {
 }
 
 template<typename T>
-void AVRTestLog::expected(const char* var, T ex, T ac) {
+void MegaTestLog::expected(const char* var, T ex, T ac) {
 	testFailed();
 	print("> ");
 	print(var);
@@ -89,6 +89,6 @@ void AVRTestLog::expected(const char* var, T ex, T ac) {
 
 } // namespace
 
-extern AVRTest::AVRTestLog avrtestlog;
+extern MegaTest::MegaTestLog avrtestlog;
 
 #endif // Whole File

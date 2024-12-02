@@ -9,7 +9,7 @@
 #include <inttypes.h>
 #include <string.h>
 
-namespace AVRTest {
+namespace MegaTest {
 
 template<typename Data>
 class AVRVector {

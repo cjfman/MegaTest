@@ -1,15 +1,15 @@
-// AVRTestCase
+// MegaTestCase
 // 
-// Test cases are used to contain and run instances of AVRTest
+// Test cases are used to contain and run instances of MegaTest
 // They are fairly straitforward. Use the addTest mehtod to add
 // add a new test, and use the runTests method to run all tests
 // in the case.
 
-#ifndef AVRTESTCASE_h
-#define AVRTESTCASE_h
+#ifndef MEGATESTCASE_h
+#define MEGATESTCASE_h
 
 #include <inttypes.h>
-#include "AVRTest.h"
+#include "MegaTest.h"
 #include "AVRVector.h"
 
 #ifdef DESKTOP
@@ -17,9 +17,9 @@
 using std::vector;
 #endif
 
-namespace AVRTest {
+namespace MegaTest {
 
-class AVRTestCase {
+class MegaTestCase {
 	// NOTE: The title member leaks when destructor, copy, 
 	// or assigmnment operator are used, but this is ok, 
 	// because each object should persist until all tests
@@ -28,14 +28,14 @@ class AVRTestCase {
 	// stored in a dynamically allocated array.
 
 	char* title; 			// The title of the case
-	AVRVector<AVRTest*> tests; // List of tests
+	AVRVector<MegaTest*> tests; // List of tests
 
 public:
-	AVRTestCase();
-	AVRTestCase(const char* title);
-	~AVRTestCase();
-	AVRTestCase& operator= (const AVRTestCase& other);
-	void addTest(AVRTest* test);
+	MegaTestCase();
+	MegaTestCase(const char* title);
+	~MegaTestCase();
+	MegaTestCase& operator= (const MegaTestCase& other);
+	void addTest(MegaTest* test);
 	bool runTests(void);
 	uint16_t numberOfTests(void);
 	// Getters

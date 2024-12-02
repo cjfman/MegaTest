@@ -1,13 +1,13 @@
-//AVRTestAll
+//MegaTestAll
 
-#include "AVRTest.cpp"
-#include "AVRTestCase.cpp"
-#include "AVRTestRegistrar.cpp"
-#include "AVRTestLog.cpp"
-#include "AVRTestSuite.cpp"
+#include "MegaTest.cpp"
+#include "MegaTestCase.cpp"
+#include "MegaTestRegistrar.cpp"
+#include "MegaTestLog.cpp"
+#include "MegaTestSuite.cpp"
 
 int main (void) {
 	avrtestlog.log("Starting Tests");
-	AVRTest::getRegistrar()->runAllTests();
+	MegaTest::getRegistrar()->runAllTests();
 	return 0;
 }

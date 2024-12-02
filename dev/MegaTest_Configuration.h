@@ -1,4 +1,4 @@
-//AVRTest_Configuration.h
+//MegaTest_Configuration.h
 
 // System Configuration (DO NOT EDIT) //////////////////////////////////////////////////////
 #if defined __x86_64__ || defined __x86_32__ || defined __amd64__ || defined __amd32__

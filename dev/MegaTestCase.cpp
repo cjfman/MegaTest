@@ -1,31 +1,31 @@
-// AVRTestCase.cpp
+// MegaTestCase.cpp
 
 #include <string.h>
 #include <stdlib.h>
-#include "AVRTestCase.h"
-#include "AVRTest.h"
-#include "AVRTestLog.h"
+#include "MegaTestCase.h"
+#include "MegaTest.h"
+#include "MegaTestLog.h"
 
-namespace AVRTest {
+namespace MegaTest {
 
-AVRTestCase::AVRTestCase() {
-	title = strdup("UNNAMED_AVRTESTCASE");
-	//strncpy(title, "UNNAMED_AVRTESTCASE", 64);
-	//title = "UNNAMED_AVRTESTCASE";
+MegaTestCase::MegaTestCase() {
+	title = strdup("UNNAMED_MEGATESTCASE");
+	//strncpy(title, "UNNAMED_MEGATESTCASE", 64);
+	//title = "UNNAMED_MEGATESTCASE";
 }
 
-AVRTestCase::AVRTestCase(const char* title) {
+MegaTestCase::MegaTestCase(const char* title) {
 	this->title = strdup(title);
 	//strncpy(this->title, title, 64);
 	//this->title = title;
 }
 
-AVRTestCase::~AVRTestCase() {
+MegaTestCase::~MegaTestCase() {
 	// Will leak title. Don't care
 	//free(title);
 }
 
-AVRTestCase& AVRTestCase::operator= (const AVRTestCase& other) {
+MegaTestCase& MegaTestCase::operator= (const MegaTestCase& other) {
 	if (this == &other) return *this; // protect against invalid self-assignment
 	//free(this->title);
 	this->title = strdup(other.title); // Will leak. Don't care
@@ -33,19 +33,19 @@ AVRTestCase& AVRTestCase::operator= (const AVRTestCase& other) {
 	return *this;
 }
 
-void AVRTestCase::addTest(AVRTest* test) {
+void MegaTestCase::addTest(MegaTest* test) {
 	// Adds a new test to the case
 	tests.push_back(test);
 }
 
-bool AVRTestCase::runTests(void) {
+bool MegaTestCase::runTests(void) {
 	// Runs all of the tests.
 	// Does not run if no title is defined
 	if (!title) return true;
 	bool final_result = true; // Anded with the result of each test
 	// Run though each test
 	for (unsigned int i = 0; i < tests.size(); i++) {
-		AVRTest* test = tests[i];
+		MegaTest* test = tests[i];
 		avrtestlog.startTest(test->getTitle());
 		// Run the test
 		bool result = test->runTest();
@@ -55,13 +55,13 @@ bool AVRTestCase::runTests(void) {
 	return final_result;
 }
 
-uint16_t AVRTestCase::numberOfTests(void) {
+uint16_t MegaTestCase::numberOfTests(void) {
 	return tests.size();
 }
 
 // Getters////////////////////////////
 
-inline const char* AVRTestCase::getTitle(void) {
+inline const char* MegaTestCase::getTitle(void) {
 	return title;
 }
 

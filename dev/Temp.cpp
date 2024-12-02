@@ -1,4 +1,4 @@
-#include "AVRTestSuite.h"
+#include "MegaTestSuite.h"
 
 void willPass(bool* result) {
 	*result = true;
@@ -11,7 +11,7 @@ void willFail(bool* result) {
 }
 
 int main (void) {
-	AVRTest::testlog.log("Starting Tests");
+	MegaTest::testlog.log("Starting Tests");
 	getRegistrar()->runAllTests();
 	return 0;
 }

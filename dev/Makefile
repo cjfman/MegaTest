@@ -1,12 +1,12 @@
 ## Project Settings
-PROJECT = AVRTest
+PROJECT = MegaTest
 MMCU    = atmega32
 AVRCC   = avr-g++
 AVRAR   = avr-ar
 OBJCOPY = avr-objcopy
 
 ## Sources
-SOURCES = Temp2.cpp AVRTestAll_main.cpp
+SOURCES = Temp2.cpp MegaTestAll_main.cpp
 
 ## Directories
 
@@ -32,7 +32,7 @@ run: clean all
 debug: clean all
 	gdb test
 
-test: Temp2.o AVRTestAll_main.o
+test: Temp2.o MegaTestAll_main.o
 	$(CMND) $^ -o $@
 
 avr: avrclean $(PROJECT).hex
@@ -54,26 +54,26 @@ avrdefines:
 
 ## Test Compilations
 
-AVRTestAll_main.o: AVRTestAll_main.cpp
-#AVRTest.o AVRTestCase.o AVRTestLog.o AVRTestRegistrar.o AVRTestSuite.o 
+MegaTestAll_main.o: MegaTestAll_main.cpp
+#MegaTest.o MegaTestCase.o MegaTestLog.o MegaTestRegistrar.o MegaTestSuite.o 
 	$(CMND) -c $^ -o $@
 
 Temp2.o: Temp2.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTest.o: AVRTest.cpp
+MegaTest.o: MegaTest.cpp
 	$(CMND) -c $^ -o $@
  
-AVRTestCase.o: AVRTestCase.cpp
+MegaTestCase.o: MegaTestCase.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestLog.o: AVRTestLog.cpp
+MegaTestLog.o: MegaTestLog.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestRegistrar.o: AVRTestRegistrar.cpp
+MegaTestRegistrar.o: MegaTestRegistrar.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestSuite.o: AVRTestSuite.cpp
+MegaTestSuite.o: MegaTestSuite.cpp
 	$(CMND) -c $^ -o $@
 
 ####################################################################
@@ -86,7 +86,7 @@ $(PROJECT).hex: $(PROJECT).out
 $(PROJECT).out: $(SOURCES)
 	$(AVRCC) $(AVRFLAGS) -o $@ $^
 
-AVR_AVRTestAll.o: AVRTestAll.cpp
+AVR_MegaTestAll.o: MegaTestAll.cpp
 	$(AVRCC) $(AVRFLAGS) -c $^ -o $@
 
 AVR_Temp2.o: Temp2.cpp

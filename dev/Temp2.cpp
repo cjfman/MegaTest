@@ -1,68 +1,68 @@
-#include "AVRTestSuite.h"
+#include "MegaTestSuite.h"
 
-AVRTEST_CASE(BooleanCase)
+MEGATEST_CASE(BooleanCase)
 
-AVRTEST(TrueExpTrue) {
+MEGATEST(TrueExpTrue) {
 	ASSERT_TRUE(true);
 }
 
-AVRTEST(TrueVarExpFalse) {
+MEGATEST(TrueVarExpFalse) {
 	bool var = true;
 	ASSERT_FALSE(var);
 }
 
-AVRTEST(TrueExpFalse) {
+MEGATEST(TrueExpFalse) {
 	ASSERT_FALSE(true);
 }
 
 ENDCASE
 
 
-AVRTEST_CASE(FloatCase)
+MEGATEST_CASE(FloatCase)
 
-AVRTEST(FloatEqual) {
+MEGATEST(FloatEqual) {
 	ASSERT_FLOAT_EQUAL(1.2, 1.2);
 }
 
-AVRTEST(FloatNEqual) {
+MEGATEST(FloatNEqual) {
 	ASSERT_FLOAT_EQUAL(1.2, 1.200003);	// Should pass
 	ASSERT_FLOAT_EQUAL(1.2, 1.2001);	// Should Fail with current settings
 }
 
 ENDCASE
 
-AVRTEST_CASE(Equality)
+MEGATEST_CASE(Equality)
 
-AVRTEST(Same) {
+MEGATEST(Same) {
 	ASSERT_EQUAL(3, 3);
 }
 
-AVRTEST(Different) {
+MEGATEST(Different) {
 	ASSERT_EQUAL(3, 4);
 }
 
-AVRTEST(ShouldBeDifferent) {
+MEGATEST(ShouldBeDifferent) {
 	ASSERT_NEQUAL(4, 4);
 }
 
-AVRTEST(ShouldBeDifferentAndAreDiff) {
+MEGATEST(ShouldBeDifferentAndAreDiff) {
 	ASSERT_NEQUAL(4, 5);
 }
 
 ENDCASE
 
 
-AVRTEST_CASE(StringEquality)
+MEGATEST_CASE(StringEquality)
 
-AVRTEST(StringsAreSame) {
+MEGATEST(StringsAreSame) {
 	ASSERT_STREQUAL("Hello", "Hello");
 }
 
-AVRTEST(StringsAreDifferent) {
+MEGATEST(StringsAreDifferent) {
 	ASSERT_STRNEQUAL("Marco", "Polo");
 }
 
-AVRTEST(SringsWillFail) {
+MEGATEST(SringsWillFail) {
 	const char *controller = "8051";
 	ASSERT_STREQUAL(controller, "AVR");
 }
@@ -70,7 +70,7 @@ AVRTEST(SringsWillFail) {
 ENDCASE
 
 //*
-class OceanFixture : public AVRTestFixture {
+class OceanFixture : public MegaTestFixture {
 protected:
 	const char* oceans[4];
 
@@ -89,13 +89,13 @@ private:
 };
 
 
-AVRTEST_CASE(OceanCase)
+MEGATEST_CASE(OceanCase)
 
-AVRTESTFIX(favoriteOcean, OceanFixture) {
+MEGATESTFIX(favoriteOcean, OceanFixture) {
 	ASSERT_STREQUAL(oceans[0], "Atlantic");
 }
 
-AVRTESTFIX(oceanFail, OceanFixture) {
+MEGATESTFIX(oceanFail, OceanFixture) {
 	ASSERT_STREQUAL(oceans[1], "Artic");
 }
 

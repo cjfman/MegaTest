@@ -1,11 +1,11 @@
-// AVRTest
+// MegaTest
 
 #include <stdlib.h>
 #include <string.h>
-#include "AVRTest.h"
-#include "AVRTestLog.h"
+#include "MegaTest.h"
+#include "MegaTestLog.h"
 
-namespace AVRTest {
+namespace MegaTest {
 
 void willPass(bool* result) {
 	// A default test to run if non is specified
@@ -13,23 +13,23 @@ void willPass(bool* result) {
 	return;
 }
 	
-AVRTest::AVRTest() {
+MegaTest::MegaTest() {
 	// Use default test willPass
 	this->title = strdup("Will Pass");
 	//this->test = willPass;
 }
 
-AVRTest::AVRTest(const char* title) { //, testf test) {
+MegaTest::MegaTest(const char* title) { //, testf test) {
 	this->title = strdup(title);
 	//this->test = test;
 }
 
-AVRTest::~AVRTest() {
+MegaTest::~MegaTest() {
 	// Will leak title. Don't care
 	//free(this->title);
 }
 
-AVRTest& AVRTest::operator=(const AVRTest& other) {
+MegaTest& MegaTest::operator=(const MegaTest& other) {
 	if (this == &other) return *this; // protect against invalid self-assignment
 	//free(this->title);
 	this->title = strdup(other.title); // Will leak. Don't care
@@ -38,12 +38,12 @@ AVRTest& AVRTest::operator=(const AVRTest& other) {
 
 #ifdef __AVR
 // Using a pure virual function with avr-gcc was casuing problems
-bool AVRTest::runTest(void) {
+bool MegaTest::runTest(void) {
 	return true;
 }
 #endif
 
-const char* AVRTest::getTitle(void) {
+const char* MegaTest::getTitle(void) {
 	return this->title;
 }
 
@@ -63,13 +63,13 @@ bool AVRBasicTest::runTest(void) {
 	return result;
 }
 
-// AVRTestFixture /////////////////////////////////////////////////////////////////
+// MegaTestFixture /////////////////////////////////////////////////////////////////
 
-AVRTestFixture::AVRTestFixture() {
+MegaTestFixture::MegaTestFixture() {
 	this->title = strdup("UNAMED FIXTURE");
 }
 
-bool AVRTestFixture::runTest(void) {
+bool MegaTestFixture::runTest(void) {
 	setup();
 	bool result = true;
 	fixtureTest(&result);
@@ -80,15 +80,15 @@ bool AVRTestFixture::runTest(void) {
 
 // Private Methods
 
-void AVRTestFixture::fixtureTest(bool* avr_test_result) { 
+void MegaTestFixture::fixtureTest(bool* avr_test_result) { 
 	*avr_test_result = true;
 }
 
-void AVRTestFixture::setup(void) {
+void MegaTestFixture::setup(void) {
 
 }
 
-void AVRTestFixture::taredown(void) {
+void MegaTestFixture::taredown(void) {
 
  }
 

@@ -1,4 +1,4 @@
-// AVRTest
+// MegaTest
 //
 // A rapper for a user defined test. Basic tests have a title and a test 
 // funtion pointer of type testf. The function itself is defined by 
@@ -11,24 +11,24 @@
 // Test fixtures use the user defined test to define a member function
 // so that the test can have access to fixture members.
 
-#ifndef AVRTEST_h
-#define AVRTEST_h
+#ifndef MEGATEST_h
+#define MEGATEST_h
 
 //#include <stdlib.h>
 //extern "C" void __cxa_pure_virtual() { while (1); }
 
-namespace AVRTest {
+namespace MegaTest {
 
 typedef void (*voidf)(void);
 typedef void (*testf)(bool *);
 
 
-/* AVRTest class
+/* MegaTest class
  *
  * description: An abstract class for wrapping user defined tests
  *
  */
-class AVRTest {
+class MegaTest {
 	// NOTE: The title member leaks when destructor, copy, 
 	// or assigmnment operator are used, but this is ok, 
 	// because each object should persist until all tests
@@ -40,10 +40,10 @@ protected:
 	char* title;	// The title of the test
 
 public:
-	AVRTest();
-	AVRTest(const char* title); //, testf newTest);
-	~AVRTest();
-	AVRTest& operator=(const AVRTest& other);
+	MegaTest();
+	MegaTest(const char* title); //, testf newTest);
+	~MegaTest();
+	MegaTest& operator=(const MegaTest& other);
 
 	// Getters
 	const char* getTitle(void);
@@ -64,7 +64,7 @@ public:
  *              test.
  *
  */
-class AVRBasicTest : public AVRTest {
+class AVRBasicTest : public MegaTest {
 protected:
 	testf test;		// The pointer to the test function
 
@@ -77,7 +77,7 @@ public:
 };
 
 
-/* AVRTestFixture class
+/* MegaTestFixture class
  *
  * description: A test that runs setup() before the user test and taredown 
  *              afterwards. This class should be subclassed. Any members 
@@ -86,9 +86,9 @@ public:
  *              or public.
  *
  */
-class AVRTestFixture : public AVRTest {
+class MegaTestFixture : public MegaTest {
 public:
-	AVRTestFixture();
+	MegaTestFixture();
 	virtual bool runTest(void);
 
 private:

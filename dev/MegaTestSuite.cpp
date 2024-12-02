@@ -1,13 +1,13 @@
-//AVRTestSuite
+//MegaTestSuite
 
-#include "AVRTestSuite.h"
+#include "MegaTestSuite.h"
 
 
 /***************************************************************************
                                 Helper Functions
 ***************************************************************************/
 
-namespace AVRTest {
+namespace MegaTest {
 
 bool floatCompare(float a, float b) {
 #ifdef AVR_FLOAT_MAXULPS

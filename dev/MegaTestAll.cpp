@@ -1,7 +1,7 @@
-//AVRTestAll
+//MegaTestAll
 
-#include "AVRTest.cpp"
-#include "AVRTestCase.cpp"
-#include "AVRTestRegistrar.cpp"
-#include "AVRTestLog.cpp"
-#include "AVRTestSuite.cpp"
+#include "MegaTest.cpp"
+#include "MegaTestCase.cpp"
+#include "MegaTestRegistrar.cpp"
+#include "MegaTestLog.cpp"
+#include "MegaTestSuite.cpp"

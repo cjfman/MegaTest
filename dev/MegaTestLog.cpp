@@ -1,10 +1,10 @@
-// AVRTestLog
+// MegaTestLog
 
 #include <inttypes.h>
 #include <math.h>
 #include <string.h>
-#include "AVRTestLog.h"
-#include "AVRTest_Configuration.h"
+#include "MegaTestLog.h"
+#include "MegaTest_Configuration.h"
 
 #ifdef DESKTOP
 	#include <iostream>
@@ -17,9 +17,9 @@
 
 #define EOL '\n'
 
-namespace AVRTest {
+namespace MegaTest {
 
-AVRTestLog::AVRTestLog() {
+MegaTestLog::MegaTestLog() {
 	testOpen = false;
 	caseOpen = false;
 	failed_cases = 0;
@@ -31,7 +31,7 @@ AVRTestLog::AVRTestLog() {
 #endif // DESKTOP
 }
 
-void AVRTestLog::print(char c) {
+void MegaTestLog::print(char c) {
 #ifdef DESKTOP
 	cout << c;
 #else
@@ -41,7 +41,7 @@ void AVRTestLog::print(char c) {
 #endif // DESKTOP
 }
 
-void AVRTestLog::print(const char* message) {
+void MegaTestLog::print(const char* message) {
 #ifdef DESKTOP
 	cout << message;
 #elif defined AVR_PRINT_ARDUINO
@@ -54,19 +54,19 @@ void AVRTestLog::print(const char* message) {
 #endif
 }
 
-void AVRTestLog::print(unsigned char c) {
+void MegaTestLog::print(unsigned char c) {
 	print((unsigned long) c);
 }
 
-void AVRTestLog::print(int i) {
+void MegaTestLog::print(int i) {
 	print((long) i);
 }
 
-void AVRTestLog::print(unsigned i) {
+void MegaTestLog::print(unsigned i) {
 	print((unsigned long) i);
 }
 
-void AVRTestLog::print(long l) {
+void MegaTestLog::print(long l) {
 #ifdef AVR_PRINT_SIGNED_DEC
 	if (l < 0) {
 		print('-');
@@ -77,27 +77,27 @@ void AVRTestLog::print(long l) {
 #endif
 }
 
-void AVRTestLog::print(unsigned long l) {
+void MegaTestLog::print(unsigned long l) {
 	printNumber(l, AVR_PRINT_BASE);
 }
 
-void AVRTestLog::print(double d) {
+void MegaTestLog::print(double d) {
 	printFloat(d, AVR_FLOAT_POINTS);
 }
 
-void AVRTestLog::log(const char* message) {
+void MegaTestLog::log(const char* message) {
 	print(message);
 	print(AVR_PRINT_NL);
 }
 
-void AVRTestLog::nl(void) {
+void MegaTestLog::nl(void) {
 	print(AVR_PRINT_NL);
 }
 
 
 //Test Result Log Methods///////////////////////////////
 
-void AVRTestLog::startCase(const char* name) {
+void MegaTestLog::startCase(const char* name) {
 	if (caseOpen) {
 		nl();
 	}
@@ -105,7 +105,7 @@ void AVRTestLog::startCase(const char* name) {
 	log(name);
 }
 
-void AVRTestLog::endCase(bool res) {
+void MegaTestLog::endCase(bool res) {
 	if (!caseOpen) return;
 	if (res) {
 		log("Case Passed");
@@ -121,7 +121,7 @@ void AVRTestLog::endCase(bool res) {
 	nl();
 }
 
-void AVRTestLog::startTest(const char* name) {
+void MegaTestLog::startTest(const char* name) {
 	print(name);
 	int dots = 32 - strlen(name);
 	dots = (dots > 3) ? dots : 3;
@@ -131,7 +131,7 @@ void AVRTestLog::startTest(const char* name) {
 	testOpen = true;
 }
 
-void AVRTestLog::endTest(bool res) {
+void MegaTestLog::endTest(bool res) {
 	if (!testOpen) return;
 	if (res) {
 		log("passed");
@@ -142,7 +142,7 @@ void AVRTestLog::endTest(bool res) {
 	testOpen = false;
 }
 
-void AVRTestLog::endTest(bool res, const char* message) {
+void MegaTestLog::endTest(bool res, const char* message) {
 	if (!testOpen) return;
 	if (res) {
 		log("passed");
@@ -155,12 +155,12 @@ void AVRTestLog::endTest(bool res, const char* message) {
 	testOpen = false;
 }
 
-void AVRTestLog::testFailed(void) {
+void MegaTestLog::testFailed(void) {
 	log("FAILED");
 	failed_tests++;
 }
 
-void AVRTestLog::conclusion(void) {
+void MegaTestLog::conclusion(void) {
 	if (failed_cases) {
 		print("FAILED: ");
 		print(failed_cases);
@@ -174,20 +174,20 @@ void AVRTestLog::conclusion(void) {
 //private//////////////////////////////////////////////
 
 /*
-void AVRTestLog::write(char c) {
+void MegaTestLog::write(char c) {
 #ifdef DESKTOP
 	cout << c;
 #endif
 }
 
-void AVRTestLog::write(const char* message) {
+void MegaTestLog::write(const char* message) {
 #ifdef DESKTOP
 	cout << message;
 #endif
 }
 //*/
 
-void AVRTestLog::printNumber(unsigned long n, uint8_t base) {
+void MegaTestLog::printNumber(unsigned long n, uint8_t base) {
   char buf[8 * sizeof(long) + 1]; // Assumes 8-bit chars plus zero byte.
   char *str = &buf[sizeof(buf) - 1];
 
@@ -206,7 +206,7 @@ void AVRTestLog::printNumber(unsigned long n, uint8_t base) {
   print(str);
 }
 
-void AVRTestLog::printFloat(double number, uint8_t digits) 
+void MegaTestLog::printFloat(double number, uint8_t digits) 
 { 
   //size_t n = 0;
   
@@ -257,4 +257,4 @@ void AVRTestLog::printFloat(double number, uint8_t digits)
 
 } //namespace
 
-AVRTest::AVRTestLog avrtestlog;
+MegaTest::MegaTestLog avrtestlog;
