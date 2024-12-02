@@ -33,9 +33,9 @@
 #include <stdlib.h>
 #include <inttypes.h>
 #include <string.h>
-#include "AVRTest_Default_Configuration.h"
+#include "MegaTest_Default_Configuration.h"
 
-namespace AVRTest {
+namespace MegaTest {
 
 template<typename Data>
 class AVRVector {

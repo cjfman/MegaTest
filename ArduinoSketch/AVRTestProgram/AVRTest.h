@@ -1,4 +1,4 @@
-// AVRTest.h
+// MegaTest.h
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -34,25 +34,25 @@
 // so that the test can have access to fixture members. Please see the
 // cpp file for detailed descriptions of all methods and functions.
 
-#ifndef AVRTEST_h
-#define AVRTEST_h
+#ifndef MEGATEST_h
+#define MEGATEST_h
 
-#include "AVRTest_Default_Configuration.h"
+#include "MegaTest_Default_Configuration.h"
 
 
-namespace AVRTest {
+namespace MegaTest {
 
 typedef void (*voidf)(void);
 typedef void (*testf)(bool *);
 
 
-/* AVRTest class
+/* MegaTest class
  *
  * description: An abstract class for wrapping user defined tests.
  *              DO NOT make an instance of this class.
  *
  */
-class AVRTest {
+class MegaTest {
 	// NOTE: The title member leaks when destructor, copy, 
 	// or assigmnment operator are used, but this is ok, 
 	// because each object should persist until all tests
@@ -61,17 +61,17 @@ class AVRTest {
 	// stored in a dynamically allocated array.
 
 protected:
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	char* title;	// The title of the test
 #else
-	char title[AVRTEST_MAX_TITLE_LENGTH];	// The title of the test
+	char title[MEGATEST_MAX_TITLE_LENGTH];	// The title of the test
 #endif
 
 public:
-	AVRTest();
-	AVRTest(const char* title);
-	~AVRTest();
-	AVRTest& operator=(const AVRTest& other);
+	MegaTest();
+	MegaTest(const char* title);
+	~MegaTest();
+	MegaTest& operator=(const MegaTest& other);
 
 	// Getters
 	const char* getTitle(void);
@@ -90,10 +90,10 @@ public:
  *
  * description: A basic test that uses a function pointer to point to the user
  *              test. Most tests will be instances of this class. Can be part of
- *              and AVRTestCase.
+ *              and MegaTestCase.
  *
  */
-class AVRBasicTest : public AVRTest {
+class AVRBasicTest : public MegaTest {
 protected:
 	testf test;		// The pointer to the test function
 
@@ -106,19 +106,19 @@ public:
 };
 
 
-/* AVRTestFixture class
+/* MegaTestFixture class
  *
  * description: A test that runs setup() before the user test and taredown 
  *              afterwards. This class should be subclassed. Any members 
  *              defined in the subclass will be in the same scope as the test.
  *              Any members defined in a subclass should either be protected
- *              or public. Can be part of an AVRTestCase.
+ *              or public. Can be part of an MegaTestCase.
  *              DO NOT make an instance of this class.
  *
  */
-class AVRTestFixture : public AVRTest {
+class MegaTestFixture : public MegaTest {
 public:
-	AVRTestFixture();
+	MegaTestFixture();
 	void setTitle(const char* title);
 	virtual bool runTest(void);
 

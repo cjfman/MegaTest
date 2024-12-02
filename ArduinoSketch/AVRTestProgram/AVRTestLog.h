@@ -1,4 +1,4 @@
-// AVRTestLog.h
+// MegaTestLog.h
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -22,26 +22,26 @@
 // THE SOFTWARE.
 
 // File Description
-// The AVRTestLog records the results of all cases and tests and presents the results
+// The MegaTestLog records the results of all cases and tests and presents the results
 // to the user. The test log abstracts away the method of printing the results. The
 // method used to print can be chosen in the configuration file. This is intended to
 // be used as a singleton. Please see the CPP file for detailed of all non-template
 // methods and functions.
 
-#ifndef AVRTESTLOG_h
-#define AVRTESTLOG_h
+#ifndef MEGATESTLOG_h
+#define MEGATESTLOG_h
 
 #include <inttypes.h>
-#include "AVRTest_Default_Configuration.h"
+#include "MegaTest_Default_Configuration.h"
 
 // Conventience Macro defined for printing the values of variables with their names
 #define AVR_PRINT_VAR(var) \
 	avrtestlog.print(#var": "); \
 	avrtestlog.println(var);
 
-namespace AVRTest {
+namespace MegaTest {
 
-class AVRTestLog {
+class MegaTestLog {
 	bool caseOpen; 					// True if a case is being run
 	bool testOpen;					// True if a test is being run
 	bool setup_done; 				// True if setup is done
@@ -52,7 +52,7 @@ class AVRTestLog {
 									// when configured to print XML.
 
 public:
-	AVRTestLog();
+	MegaTestLog();
 	void setup(void);
 	void print(char c);
 	void print(char* message);
@@ -71,7 +71,7 @@ public:
 	template<typename T>
 	void tabprintln(T object);
 #endif
-#ifdef AVRTestCustomPrint
+#ifdef MegaTestCustomPrint
 	template<typename T>
 	void print(T object);
 #endif
@@ -103,11 +103,11 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////////////
 // The following section defines template methods that allow the ASSERTION macros,
-// defined in AVRTestSuite.h, to be used with user defined types.
+// defined in MegaTestSuite.h, to be used with user defined types.
 ///////////////////////////////////////////////////////////////////////////////////
 
 /*
- * AVRTestLog::print
+ * MegaTestLog::print
  *
  * parameter: (object) object to be printed
  *
@@ -117,15 +117,15 @@ private:
  *              defined class.
  *
  */
-#ifdef AVRTestCustomPrint
+#ifdef MegaTestCustomPrint
 template<typename T>
-void AVRTestLog::print(T object) {
+void MegaTestLog::print(T object) {
 	avrTestCustomPrint(object);
 }
 #endif
 
 /*
- * AVRTestLog::println
+ * MegaTestLog::println
  *
  * parameter: (var) object to be printed
  *
@@ -133,13 +133,13 @@ void AVRTestLog::print(T object) {
  *
  */
 template<typename T>
-void AVRTestLog::println(T var) {
+void MegaTestLog::println(T var) {
 	print(var);
 	nl();
 }
 
 /*
- * AVRTestLog::expected
+ * MegaTestLog::expected
  *
  * parameters: (ex) the expected value. 
  *             (ac) the actual value.
@@ -150,7 +150,7 @@ void AVRTestLog::println(T var) {
  *
  */
 template<typename T, typename T2>
-void AVRTestLog::expected(T ex, T2 ac) {
+void MegaTestLog::expected(T ex, T2 ac) {
 #ifdef AVR_LOG_XML
 	println("</serialLog>");
 	tabprintln("<result>false</result>");
@@ -165,7 +165,7 @@ void AVRTestLog::expected(T ex, T2 ac) {
 	indent_level--;
 	tabprintln("</reason>");
 	indent_level--;
-	tabprintln("</AVRTest>");
+	tabprintln("</MegaTest>");
 	failed_tests++;
 	testOpen = false;
 #else
@@ -179,7 +179,7 @@ void AVRTestLog::expected(T ex, T2 ac) {
 }
 
 /*
- * AVRTestLog::expected
+ * MegaTestLog::expected
  *
  * parameters: var, The name of the variable who's value is the actual value.
  *             ex, The expected value. 
@@ -191,7 +191,7 @@ void AVRTestLog::expected(T ex, T2 ac) {
  *
  */
 template<typename T, typename T2>
-void AVRTestLog::expected(const char* var, T ex, T2 ac) {
+void MegaTestLog::expected(const char* var, T ex, T2 ac) {
 #ifdef AVR_LOG_XML
 	println("</serialLog>");
 	tabprintln("<result>false</result>");
@@ -209,7 +209,7 @@ void AVRTestLog::expected(const char* var, T ex, T2 ac) {
 	indent_level--;
 	tabprintln("</reason>");
 	indent_level--;
-	tabprintln("</AVRTest>");
+	tabprintln("</MegaTest>");
 	failed_tests++;
 	testOpen = false;
 #else
@@ -225,7 +225,7 @@ void AVRTestLog::expected(const char* var, T ex, T2 ac) {
 }
 
 /*
- * AVRTestLog::tabprint
+ * MegaTestLog::tabprint
  *
  * parameter: object, the object to be printed
  *
@@ -234,7 +234,7 @@ void AVRTestLog::expected(const char* var, T ex, T2 ac) {
  */
 #ifdef AVR_LOG_XML
 template<typename T>
-void AVRTestLog::tabprint(T object) {
+void MegaTestLog::tabprint(T object) {
 	for (int i = 0; i < indent_level; i++) {
 		print(AVR_LOG_TAB_CHAR);
 	}
@@ -242,14 +242,14 @@ void AVRTestLog::tabprint(T object) {
 }
 
 /*
- * AVRTestLog::tabprint
+ * MegaTestLog::tabprint
  *
  * parameter: object, the object to be printed
  *
  * description: Only used when printing XML. Like tabprintln, but adds a newline after.
  */
 template<typename T>
-void AVRTestLog::tabprintln(T object) {
+void MegaTestLog::tabprintln(T object) {
 	tabprint(object);
 	nl();
 }
@@ -259,6 +259,6 @@ void AVRTestLog::tabprintln(T object) {
 } // namespace
 
 // The global log ojbect singleton
-extern AVRTest::AVRTestLog avrtestlog;
+extern MegaTest::MegaTestLog avrtestlog;
 
 #endif // Whole File

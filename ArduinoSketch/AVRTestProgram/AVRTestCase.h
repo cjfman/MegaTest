@@ -1,4 +1,4 @@
-// AVRTestCase.h
+// MegaTestCase.h
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -22,28 +22,28 @@
 // THE SOFTWARE.
 
 // File Description
-// Test cases are used to contain and run instances of AVRTest
+// Test cases are used to contain and run instances of MegaTest
 // They are fairly straitforward. Use the addTest mehtod to add
 // add a new test, and use the runTests method to run all tests
 // in the case. See the CPP file for detailed descriptions of
 // methods and functions.
 
-#ifndef AVRTESTCASE_h
-#define AVRTESTCASE_h
+#ifndef MEGATESTCASE_h
+#define MEGATESTCASE_h
 
 #include <inttypes.h>
-#include "AVRTest.h"
+#include "MegaTest.h"
 #include "AVRVector.h"
-#include "AVRTest_Default_Configuration.h"
+#include "MegaTest_Default_Configuration.h"
 
 #ifdef DESKTOP
 #include <vector>
 using std::vector;
 #endif
 
-namespace AVRTest {
+namespace MegaTest {
 
-class AVRTestCase {
+class MegaTestCase {
 	// NOTE: The title member leaks when destructor, copy, 
 	// or assigmnment operator are used, but this is ok, 
 	// because each object should persist until all tests
@@ -51,19 +51,19 @@ class AVRTestCase {
 	// This is done this way so that the objects can be
 	// stored in a dynamically allocated array.
 
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	char* title; 				// The title of the case
 #else
-	char title[AVRTEST_MAX_TITLE_LENGTH]; // The title of the case
+	char title[MEGATEST_MAX_TITLE_LENGTH]; // The title of the case
 #endif
-	AVRVector<AVRTest*> tests;  // List of tests
+	AVRVector<MegaTest*> tests;  // List of tests
 
 public:
-	AVRTestCase();
-	AVRTestCase(const char* title);
-	~AVRTestCase();
-	AVRTestCase& operator= (const AVRTestCase& other);
-	void addTest(AVRTest* test);
+	MegaTestCase();
+	MegaTestCase(const char* title);
+	~MegaTestCase();
+	MegaTestCase& operator= (const MegaTestCase& other);
+	void addTest(MegaTest* test);
 	bool runTests(void);
 	uint16_t numberOfTests(void);
 	// Getters

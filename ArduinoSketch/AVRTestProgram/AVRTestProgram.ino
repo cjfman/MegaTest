@@ -1,8 +1,8 @@
-#include "AVRTestSuite.h"
+#include "MegaTestSuite.h"
 
-AVRTEST_CASE(SampleCase)
+MEGATEST_CASE(SampleCase)
 
-AVRTEST_TEST(SampleTest) {
+MEGATEST_TEST(SampleTest) {
   ASSERT_TRUE(1 + 1 == 2)
 }
 

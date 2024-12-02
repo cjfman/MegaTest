@@ -1,4 +1,4 @@
-// AVRTestSuite.h
+// MegaTestSuite.h
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -23,7 +23,7 @@
 
 
 // This Test Suite is a light weight testing suite designed for AVR.
-// To add a test, first define a test using the AVRTEST_CASE(<casename>) macro
+// To add a test, first define a test using the MEGATEST_CASE(<casename>) macro
 // Any test defined afterwards will be part of that test case. Please
 // end a test case with the ENDCASE macro, or your compiler will through a 
 // syntax error. To define a test, use the AVRTESET(<testname>) macro.
@@ -31,7 +31,7 @@
 // behavior.
 
 // These macros automatically register with the global registrar, defined in
-// AVRTestRegistrar.cpp. In the main loop, use avrTestRegistrar.runAllTests()
+// MegaTestRegistrar.cpp. In the main loop, use avrTestRegistrar.runAllTests()
 // to run all of the registered tests.
 
 // Each macro defines and instantiates an integer using the result of the 
@@ -39,33 +39,33 @@
 // purely so that the registration function will run.
 
 
-#ifndef AVRTESTSUITE_h
-#define AVRTESTSUITE_h
+#ifndef MEGATESTSUITE_h
+#define MEGATESTSUITE_h
 
-#ifndef AVRTEST
-#define AVRTEST
+#ifndef MEGATEST
+#define MEGATEST
 #endif
 
 #include <math.h>
 #include <string.h>
 #include <inttypes.h>
-#include "AVRTest_Default_Configuration.h"
-#include "AVRTestRegistrar.h"
-#include "AVRTest.h"
+#include "MegaTest_Default_Configuration.h"
+#include "MegaTestRegistrar.h"
+#include "MegaTest.h"
 
 #if defined AVR_PRINT_ARDUINO || defined ARDUINO_LIBS
 #include <Arduino.h>
 #endif
 
-using AVRTest::getRegistrar;
-using AVRTest::AVRTestFixture;
+using MegaTest::getRegistrar;
+using MegaTest::MegaTestFixture;
 
 
 /***************************************************************************
                             Function Prototypes
 ***************************************************************************/
 
-namespace AVRTest {
+namespace MegaTest {
 
 bool floatCompare(float a, float b);
 bool AlmostEqual2sComplement(float A, float B, long maxUlps);
@@ -79,7 +79,7 @@ void avrtest_init(void);
                           Test and Case Registration
 ***************************************************************************/
 
-AVRTest::AVRTestRegistrar avrTestRegistrar;
+MegaTest::MegaTestRegistrar avrTestRegistrar;
 
 #ifndef ARDUINO_IDE
 int main(void) {
@@ -101,7 +101,7 @@ void loop() {
 }
 #endif
 
-/* AVRTEST_CASE macro
+/* MEGATEST_CASE macro
  *
  * parameter case_name : The name of the test case.
  * 						 Must contain no spaces.
@@ -111,11 +111,11 @@ void loop() {
  * 				between this macro and the ENDCASE macro.
  *
  */
-#define AVRTEST_CASE(case_name) \
- 	AVRTest::AVRTestCase AVR_TEST_CASE_##case_name(#case_name); \
- 	const uint8_t AVR_TEST_CASE_int_##case_name \
-	= avrTestRegistrar.newCase(&AVR_TEST_CASE_##case_name); \
-	namespace  AVR_TEST_CASE_SPACE_##case_name {
+#define MEGATEST_CASE(case_name) \
+ 	MegaTest::MegaTestCase MEGA_TEST_CASE_##case_name(#case_name); \
+ 	const uint8_t MEGA_TEST_CASE_int_##case_name \
+	= avrTestRegistrar.newCase(&MEGA_TEST_CASE_##case_name); \
+	namespace  MEGA_TEST_CASE_SPACE_##case_name {
 
 /* ENDCASE macro
  *
@@ -135,12 +135,12 @@ void loop() {
  * 				{<code>}
  *
  */
-#define AVRTEST_TEST(test_name) \
-	void AVR_TEST_##test_name(bool*); \
-	AVRTest::AVRBasicTest AVR_BASIC_TEST_##test_name(#test_name, AVR_TEST_##test_name); \
-	const uint8_t AVR_TEST_##test_name##_ID = \
+#define MEGATEST_TEST(test_name) \
+	void MEGA_TEST_##test_name(bool*); \
+	MegaTest::AVRBasicTest AVR_BASIC_TEST_##test_name(#test_name, MEGA_TEST_##test_name); \
+	const uint8_t MEGA_TEST_##test_name##_ID = \
 		avrTestRegistrar.newTest(&AVR_BASIC_TEST_##test_name); \
-	void AVR_TEST_##test_name(bool* avr_test_result)
+	void MEGA_TEST_##test_name(bool* avr_test_result)
 
 /* AVRTEXTFIX macro
  *
@@ -148,17 +148,17 @@ void loop() {
  *              and registers it with the global registrar
  *
  */
-#define AVRTEST_FIX(test_name, fixture) \
-	class AVR_TEST_FIXTURE_##test_name : public fixture { \
+#define MEGATEST_FIX(test_name, fixture) \
+	class MEGA_TEST_FIXTURE_##test_name : public fixture { \
 	public: \
-		AVR_TEST_FIXTURE_##test_name() { setTitle(#test_name); }; \
+		MEGA_TEST_FIXTURE_##test_name() { setTitle(#test_name); }; \
 	private: \
 		void fixtureTest(bool*); \
 	}; \
-	AVR_TEST_FIXTURE_##test_name avrTestFixture_##test_name; \
-	const uint8_t AVR_TEST_##test_name##_ID = \
+	MEGA_TEST_FIXTURE_##test_name avrTestFixture_##test_name; \
+	const uint8_t MEGA_TEST_##test_name##_ID = \
 		avrTestRegistrar.newTest(&avrTestFixture_##test_name); \
-	void AVR_TEST_FIXTURE_##test_name::fixtureTest(bool* avr_test_result)
+	void MEGA_TEST_FIXTURE_##test_name::fixtureTest(bool* avr_test_result)
 
 
 /***************************************************************************
@@ -216,14 +216,14 @@ void loop() {
 	}
 
 #define ASSERT_FLOAT_EQUAL(act, exp) \
-	if (!AVRTest::floatCompare((exp), (act))) { \
+	if (!MegaTest::floatCompare((exp), (act))) { \
 		*avr_test_result = false; \
 		avrtestlog.expected(#act, (exp), (act)); \
 		return; \
 	}
 
 #define ASSERT_FLOAT_NEQUAL(act, exp) \
-	if (AVRTest::floatCompare((exp), (act))) { \
+	if (MegaTest::floatCompare((exp), (act))) { \
 		*avr_test_result = false; \
 		avrtestlog.expected(#act, (exp), (act)); \
 		return; \
@@ -245,7 +245,7 @@ void loop() {
                                 Helper Functions
 ***************************************************************************/
 
-namespace AVRTest {
+namespace MegaTest {
 
 bool floatCompare(float a, float b) {
 #ifdef AVR_FLOAT_MAXULPS

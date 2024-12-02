@@ -1,6 +1,6 @@
-//AVRTest_Default_Configuration.h
+//MegaTest_Default_Configuration.h
 
-#include <AVRTest_Configuration.h>
+#include <MegaTest_Configuration.h>
 
 // System Configuration (DO NOT EDIT) //////////////////////////////////////////////////////
 #if defined __x86_64__ || defined __x86_32__ || defined __amd64__ || defined __amd32__
@@ -22,8 +22,8 @@
 //	#define AVR_MAX_TESTS 24
 #endif
 
-#ifndef AVRTEST_MAX_TITLE_LENGTH
-//	#define AVRTEST_MAX_TITLE_LENGTH 24
+#ifndef MEGATEST_MAX_TITLE_LENGTH
+//	#define MEGATEST_MAX_TITLE_LENGTH 24
 #endif
 
 // Define ARDUINO_IDE if you plan on programming your device with the ARDUINO_IDE

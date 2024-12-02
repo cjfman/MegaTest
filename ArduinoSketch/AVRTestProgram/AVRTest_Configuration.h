@@ -1,4 +1,4 @@
-//AVRTest_Configuration.h
+//MegaTest_Configuration.h
 
 // General Settings ////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@
 // The maximum length, including the null character, that the title of a case or test can
 // have. Names longer than this length will be trucated. If not defined, dynamic name
 // allocation will be used and the limit to title lengths will be memory space.
-//#define AVRTEST_MAX_TITLE_LENGTH 16
+//#define MEGATEST_MAX_TITLE_LENGTH 16
 
 // Settings for printing ///////////////////////////////////////////////////////////////////
 
@@ -74,8 +74,8 @@
 
 // Custom Printing /////////////////////////////////////////////////////////////////////////
 
-// Define AVRTestCustomePrint to turn on the ability to write custom printing methods for
+// Define MegaTestCustomePrint to turn on the ability to write custom printing methods for
 // for classes. Enabling this option may cause some standard types not to print properly.
-//#define AVRTestCustomPrint
+//#define MegaTestCustomPrint
 
 // Use this section to declare methods to print your custome objects and classes

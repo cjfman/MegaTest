@@ -1,4 +1,4 @@
-// AVRTest.cpp
+// MegaTest.cpp
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -23,10 +23,10 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "AVRTest.h"
-#include "AVRTestLog.h"
+#include "MegaTest.h"
+#include "MegaTestLog.h"
 
-namespace AVRTest {
+namespace MegaTest {
 
 /*
  * function willPass
@@ -40,53 +40,53 @@ void willPass(bool* result) {
 }
 
 /* 
- * AVRTest::Default Constructor
+ * MegaTest::Default Constructor
  */	
-AVRTest::AVRTest() {
+MegaTest::MegaTest() {
 	// Use default test willPass
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup("Will Pass");
 #else
-	strlcpy(this->title, "Will Pass", AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, "Will Pass", MEGATEST_MAX_TITLE_LENGTH);
 #endif
 }
 
 /*
- * AVRTest::Contructor that gets the title from the parameter
+ * MegaTest::Contructor that gets the title from the parameter
  */
-AVRTest::AVRTest(const char* title) {
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+MegaTest::MegaTest(const char* title) {
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup(title);
 #else
-	//strlcpy(this->title, title, AVRTEST_MAX_TITLE_LENGTH);
+	//strlcpy(this->title, title, MEGATEST_MAX_TITLE_LENGTH);
 #endif
 }
 
 /*
- * AVRTest::Destructor
+ * MegaTest::Destructor
  */
-AVRTest::~AVRTest() {
+MegaTest::~MegaTest() {
 	// Will leak title. Don't care
 	//free(this->title); // Commented out because title would get freed prematurely
 }
 
 /*
- * AVRTest::Assignment Operator
+ * MegaTest::Assignment Operator
  */
-AVRTest& AVRTest::operator=(const AVRTest& other) {
+MegaTest& MegaTest::operator=(const MegaTest& other) {
 	if (this == &other) return *this; // protect against invalid self-assignment
 	//free(this->title); // Commented out because title would get freed prematurely
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup(other.title); // Will leak. Don't care
 #else
-	strlcpy(this->title, other.title, AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, other.title, MEGATEST_MAX_TITLE_LENGTH);
 #endif
 	return *this;
 }
 
 #ifdef __AVR
 /*
- * AVRTest::runTest
+ * MegaTest::runTest
  *
  * returns: True if the test passed. False otherwise.
  *
@@ -94,18 +94,18 @@ AVRTest& AVRTest::operator=(const AVRTest& other) {
  * using a pure virual function with avr-gcc was casuing problems
  *
  */
-bool AVRTest::runTest(void) {
+bool MegaTest::runTest(void) {
 	return true;
 }
 #endif
 
 /*
- * AVRTest::getTitle
+ * MegaTest::getTitle
  *
  * returns: The title of the test
  *
  */
-const char* AVRTest::getTitle(void) {
+const char* MegaTest::getTitle(void) {
 	return this->title;
 }
 
@@ -121,10 +121,10 @@ const char* AVRTest::getTitle(void) {
  *
  */
 AVRBasicTest::AVRBasicTest(const char* title, testf test) {
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup(title);
 #else
-	strlcpy(this->title, title, AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, title, MEGATEST_MAX_TITLE_LENGTH);
 #endif
 	this->test = test;
 }
@@ -146,47 +146,47 @@ bool AVRBasicTest::runTest(void) {
 	return result;
 }
 
-// AVRTestFixture /////////////////////////////////////////////////////////////////
+// MegaTestFixture /////////////////////////////////////////////////////////////////
 
 /*
- * AVRTestFixture::Constructor
+ * MegaTestFixture::Constructor
  *
  * description: This is a basic contructor. This class is intended to be subclassed
  *
  */
-AVRTestFixture::AVRTestFixture() {
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+MegaTestFixture::MegaTestFixture() {
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup("UNAMED FIXTURE");
 #else
-	strlcpy(this->title, "UNAMED FIXTURE", AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, "UNAMED FIXTURE", MEGATEST_MAX_TITLE_LENGTH);
 #endif
 }
 
 /*
- * AVRTestFixture::setTitle
+ * MegaTestFixture::setTitle
  *
  * parameter: title, the title of the test fixture
  *
  * description: This is the setter for the title member
  *
  */
-void AVRTestFixture::setTitle(const char* title) {
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+void MegaTestFixture::setTitle(const char* title) {
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup(title);
 #else
-	strlcpy(this->title, title, AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, title, MEGATEST_MAX_TITLE_LENGTH);
 #endif
 }
 
 /*
- * AVRTestFixture::runTest
+ * MegaTestFixture::runTest
  *
  * returns: True is test passed. False otherwise.
  * 
  * description: Runs the defined test. Calls setup before hand and taredown afterwards.
  *
  */
-bool AVRTestFixture::runTest(void) {
+bool MegaTestFixture::runTest(void) {
 	setup();
 	bool result = true;
 	fixtureTest(&result);
@@ -198,32 +198,32 @@ bool AVRTestFixture::runTest(void) {
 // Private Methods
 
 /*
- * AVRTestFixture::fixtureTest
+ * MegaTestFixture::fixtureTest
  *
  * description: This is the test that runs. It is inteneded to be overrided the
  *              this class is subclassed. The default version passes.
  */
-void AVRTestFixture::fixtureTest(bool* avr_test_result) { 
+void MegaTestFixture::fixtureTest(bool* avr_test_result) { 
 	*avr_test_result = true;
 }
 
 /* 
- * AVRTestFixture::setup
+ * MegaTestFixture::setup
  *
  * description: Empty setup method that is called before the test is run.
  *              Should be overrided
  */
-void AVRTestFixture::setup(void) {
+void MegaTestFixture::setup(void) {
 
 }
 
 /* 
- * AVRTestFixture::taredown
+ * MegaTestFixture::taredown
  *
  * description: Empty taredown method that is called before the test is run.
  *              Should be overrided
  */
-void AVRTestFixture::taredown(void) {
+void MegaTestFixture::taredown(void) {
 
  }
 

@@ -1,4 +1,4 @@
-// AVRTestRegistrar.h
+// MegaTestRegistrar.h
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -25,7 +25,7 @@
 // The main test registrar. All test cases and tests are to be registered with 
 // the global definition of the registrar. DO NOT instantiate your own.
 // To access the registar, use the getRegistrar() function, which returns a 
-// pointer of type *AVRTestRegistar. 
+// pointer of type *MegaTestRegistar. 
 //
 // To register a case, use the newCase method. Any tests registered with the 
 // newTest method will be added to the most recently registered case. After 
@@ -44,13 +44,13 @@
 // - The registration functions return type int so that they can be run before
 //   main, but the value is nonconsequential.
 
-#ifndef AVRTESTREGISTRAR_h
-#define AVRTESTREGISTRAR_h
+#ifndef MEGATESTREGISTRAR_h
+#define MEGATESTREGISTRAR_h
 
 #include <inttypes.h>
-#include "AVRTest.h"
-#include "AVRTestCase.h"
-#include "AVRTestLog.h"
+#include "MegaTest.h"
+#include "MegaTestCase.h"
+#include "MegaTestLog.h"
 #include "AVRVector.h"
 
 #ifdef DESKTOP
@@ -58,18 +58,18 @@
 using std::vector;
 #endif
 
-namespace AVRTest {
+namespace MegaTest {
 
-class AVRTestRegistrar {
-	AVRVector<AVRTestCase*> testCases;	// List that contains registered cases
-	AVRTestCase* currentCase; 			// Test case that is being registered
+class MegaTestRegistrar {
+	AVRVector<MegaTestCase*> testCases;	// List that contains registered cases
+	MegaTestCase* currentCase; 			// Test case that is being registered
 	bool caseOpen;						// Set when a case is being registered
 	uint16_t numberOfTests; 			// The total number of tests
 
 public:
 	void runAllTests(void);
-	int newCase(AVRTestCase* newcase);
-	int newTest(AVRTest* test);
+	int newCase(MegaTestCase* newcase);
+	int newTest(MegaTest* test);
 	int submitCase();
 };
 
@@ -83,7 +83,7 @@ public:
  *				 constructor being called again.
  *
  */
-AVRTestRegistrar* getRegistrar(void);
+MegaTestRegistrar* getRegistrar(void);
 
 } //namespace
 

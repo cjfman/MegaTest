@@ -1,4 +1,4 @@
-// AVRTestCase.cpp
+// MegaTestCase.cpp
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -23,90 +23,90 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "AVRTestCase.h"
-#include "AVRTest.h"
-#include "AVRTestLog.h"
+#include "MegaTestCase.h"
+#include "MegaTest.h"
+#include "MegaTestLog.h"
 
-namespace AVRTest {
+namespace MegaTest {
 
 /*
- * AVRTestCase::Default Constructor
+ * MegaTestCase::Default Constructor
  */
-AVRTestCase::AVRTestCase() {
-#ifndef AVRTEST_MAX_TITLE_LENGTH
-	title = strdup("UNNAMED_AVRTESTCASE");
+MegaTestCase::MegaTestCase() {
+#ifndef MEGATEST_MAX_TITLE_LENGTH
+	title = strdup("UNNAMED_MEGATESTCASE");
 #else
-	strlcpy(title, "UNNAMED_AVRTESTCASE", AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(title, "UNNAMED_MEGATESTCASE", MEGATEST_MAX_TITLE_LENGTH);
 #endif
 }
 
 /*
- * AVRTestCase::Use this Constructor
+ * MegaTestCase::Use this Constructor
  * 
  * parameters: (title) the title of the case.
  *
  */
-AVRTestCase::AVRTestCase(const char* title) {
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+MegaTestCase::MegaTestCase(const char* title) {
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup(title);
 #else
-	strlcpy(this->title, title, AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, title, MEGATEST_MAX_TITLE_LENGTH);
 #endif
 }
 
 /*
- * AVRTestCase::Destructor
+ * MegaTestCase::Destructor
  */
-AVRTestCase::~AVRTestCase() {
+MegaTestCase::~MegaTestCase() {
 	// Will leak title. Don't care
 	//free(title); // Commented because title was beeing freed prematurely
 }
 
 /*
- * AVRTestCase::Assignment Operator
+ * MegaTestCase::Assignment Operator
  */
-AVRTestCase& AVRTestCase::operator= (const AVRTestCase& other) {
+MegaTestCase& MegaTestCase::operator= (const MegaTestCase& other) {
 	if (this == &other) return *this; // protect against invalid self-assignment
 	//free(this->title);  // Commented because title was beeing freed prematurely
-#ifndef AVRTEST_MAX_TITLE_LENGTH
+#ifndef MEGATEST_MAX_TITLE_LENGTH
 	this->title = strdup(other.title); // Will leak. Don't care
 #else
-	strlcpy(this->title, other.title, AVRTEST_MAX_TITLE_LENGTH);
+	strlcpy(this->title, other.title, MEGATEST_MAX_TITLE_LENGTH);
 #endif
 	this->tests = other.tests;
 	return *this;
 }
 
 /*
- * AVRTestCase::addTest
+ * MegaTestCase::addTest
  *
- * parameters: (test) a pointer to an AVRTest Object to be added to the case
+ * parameters: (test) a pointer to an MegaTest Object to be added to the case
  *
  * description: Addes the specified test to the case. The test will be run
  *              when the case runs.
  *
  */
-void AVRTestCase::addTest(AVRTest* test) {
+void MegaTestCase::addTest(MegaTest* test) {
 	// Adds a new test to the case
 	tests.push_back(test);
 }
 
 /*
- * AVRTestCase::runTests
+ * MegaTestCase::runTests
  * 
  * returns: True if all tests passed. False otherwise.
  * 
  * description: Runs all of the tests added by addTest().
  *
  */
-bool AVRTestCase::runTests(void) {
+bool MegaTestCase::runTests(void) {
 	// Runs all of the tests.
 	// Does not run if no title is defined
 	if (!title) return true;
 	bool final_result = true; // Anded with the result of each test.
 	// Run though each test
 	for (unsigned int i = 0; i < tests.size(); i++) {
-		AVRTest* test = tests[i];				// Aquire test from list of tests
+		MegaTest* test = tests[i];				// Aquire test from list of tests
 		avrtestlog.startTest(test->getTitle());	// Report the test to the log
 		// Run the test
 		bool result = test->runTest();
@@ -117,24 +117,24 @@ bool AVRTestCase::runTests(void) {
 }
 
 /*
- * AVRTestCase::numberOfTests
+ * MegaTestCase::numberOfTests
  *
  * returns: (uint16_t) The number of tests that are in the case
  *
  */
-uint16_t AVRTestCase::numberOfTests(void) {
+uint16_t MegaTestCase::numberOfTests(void) {
 	return tests.size();
 }
 
 // Getters////////////////////////////
 
 /*
- * AVRTestCase::getTitle
+ * MegaTestCase::getTitle
  *
  * returns: (const char*) The title of the case
  *
  */
-const char* AVRTestCase::getTitle(void) {
+const char* MegaTestCase::getTitle(void) {
 	return title;
 }
 

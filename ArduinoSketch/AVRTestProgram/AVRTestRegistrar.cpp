@@ -1,4 +1,4 @@
-// AVRTestRegistrar.cpp
+// MegaTestRegistrar.cpp
 
 // The MIT License (MIT)
 // Copyright (c) 2013, Charles Jessup Franklin
@@ -23,21 +23,21 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "AVRTestRegistrar.h"
-#include "AVRTestCase.h"
-#include "AVRTest.h"
-#include "AVRTestLog.h"
+#include "MegaTestRegistrar.h"
+#include "MegaTestCase.h"
+#include "MegaTest.h"
+#include "MegaTestLog.h"
 
-namespace AVRTest {
+namespace MegaTest {
 
 /*
- * AVRTestRegistrar::runAllTests
+ * MegaTestRegistrar::runAllTests
  *
  * description: After all tests, cases, and fixtures have been registered with
  *              the registrar, calling this method will run each case and report
  *              the results back to the user.
  */
-void AVRTestRegistrar::runAllTests(void) {
+void MegaTestRegistrar::runAllTests(void) {
 	// Close and complete registration of any open cases
 	if (caseOpen) {
 		submitCase();
@@ -47,7 +47,7 @@ void AVRTestRegistrar::runAllTests(void) {
 	avrtestlog.log("Running all Tests");
 	// Run through each case
 	for (unsigned int i = 0; i < testCases.size(); i++) {
-		AVRTestCase* testcase = testCases[i];		// Get case from list
+		MegaTestCase* testcase = testCases[i];		// Get case from list
 		avrtestlog.startCase(testcase->getTitle());	// Report to the log
 		bool res = testcase->runTests();			// Run the case
 		avrtestlog.endCase(res);					// Retport to the log
@@ -56,9 +56,9 @@ void AVRTestRegistrar::runAllTests(void) {
 }
 
 /*
- * AVRTestRegistrar::newCase
+ * MegaTestRegistrar::newCase
  *
- * parameters: (newcase) Pointer to the case to be registered. Instance of AVRTestCase.
+ * parameters: (newcase) Pointer to the case to be registered. Instance of MegaTestCase.
  *
  * returns: (int) The number of cases registred, excluding this one.
  *
@@ -67,7 +67,7 @@ void AVRTestRegistrar::runAllTests(void) {
  *              to this case.
  *
  */
-int AVRTestRegistrar::newCase(AVRTestCase* newcase) {
+int MegaTestRegistrar::newCase(MegaTestCase* newcase) {
 	// Close and complete registration of any open case.
 	if (caseOpen) {
 		submitCase();
@@ -78,9 +78,9 @@ int AVRTestRegistrar::newCase(AVRTestCase* newcase) {
 }
 
 /*
- * AVRTestRegistsrar::newTest
+ * MegaTestRegistsrar::newTest
  *
- * parameters: (test) Pointer to the test to be added. Instance of AVRTest
+ * parameters: (test) Pointer to the test to be added. Instance of MegaTest
  *
  * returns: (int) The number of tests total across all cases, excluding this one.
  *
@@ -89,9 +89,9 @@ int AVRTestRegistrar::newCase(AVRTestCase* newcase) {
  *              this behavior.
  *
  */
-int AVRTestRegistrar::newTest(AVRTest* test) {
+int MegaTestRegistrar::newTest(MegaTest* test) {
 	if (!caseOpen) {
-		//this->newCase("UNNAMED_AVRTESTCASE");
+		//this->newCase("UNNAMED_MEGATESTCASE");
 		return 0;
 	}
 	currentCase->addTest(test);
@@ -99,7 +99,7 @@ int AVRTestRegistrar::newTest(AVRTest* test) {
 }
 
 /*
- * AVRTestRegistrar::submitCase
+ * MegaTestRegistrar::submitCase
  *
  * returns: (int) 0. The return value of this method is non consequential.
  *
@@ -107,7 +107,7 @@ int AVRTestRegistrar::newTest(AVRTest* test) {
  *              Any tests added after this is called will be added to another case.
  *
  */
-int AVRTestRegistrar::submitCase() {
+int MegaTestRegistrar::submitCase() {
 	// Complete the registration of a case and add it to the
 	// list of cases.
 	if (caseOpen) {
@@ -126,14 +126,14 @@ int AVRTestRegistrar::submitCase() {
  *              AVR-GCC seems to have trouble initializing static variables with
  *              anything other than a litteral. To work around this, I initialize
  *              a pointer to 0. This is followed by a conditional that allocates
- *              and initializes an AVRTestRegistrar object.
+ *              and initializes an MegaTestRegistrar object.
  *
  */
-AVRTestRegistrar* getRegistrar(void) {
-	static AVRTestRegistrar *registrar = 0;
+MegaTestRegistrar* getRegistrar(void) {
+	static MegaTestRegistrar *registrar = 0;
 	if (!registrar) {
-		registrar = (AVRTestRegistrar*)malloc(sizeof(AVRTestRegistrar));
-		*registrar = AVRTestRegistrar();
+		registrar = (MegaTestRegistrar*)malloc(sizeof(MegaTestRegistrar));
+		*registrar = MegaTestRegistrar();
 	}
 	return registrar;
 }
