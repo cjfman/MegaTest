@@ -1,5 +1,5 @@
 ## Sources
-SOURCES = Temp2.cpp AVRTestAll.cpp
+SOURCES = Temp2.cpp MegaTestAll.cpp
 
 ## Directories
 
@@ -19,7 +19,7 @@ run: clean all
 debug: clean all
 	gdb test
 
-test: Temp2.o AVRTestAll.o
+test: Temp2.o MegaTestAll.o
 	$(CMND) $^ -o $@
 
 clean:
@@ -32,24 +32,24 @@ defines:
 
 ## Test Compilations
 
-AVRTestAll.o: AVRTestAll.cpp
-#AVRTest.o AVRTestCase.o AVRTestLog.o AVRTestRegistrar.o AVRTestSuite.o 
+MegaTestAll.o: MegaTestAll.cpp
+#MegaTest.o MegaTestCase.o MegaTestLog.o MegaTestRegistrar.o MegaTestSuite.o 
 	$(CMND) -c $^ -o $@
 
 Temp2.o: Temp2.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTest.o: AVRTest.cpp
+MegaTest.o: MegaTest.cpp
 	$(CMND) -c $^ -o $@
  
-AVRTestCase.o: AVRTestCase.cpp
+MegaTestCase.o: MegaTestCase.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestLog.o: AVRTestLog.cpp
+MegaTestLog.o: MegaTestLog.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestRegistrar.o: AVRTestRegistrar.cpp
+MegaTestRegistrar.o: MegaTestRegistrar.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestSuite.o: AVRTestSuite.cpp
+MegaTestSuite.o: MegaTestSuite.cpp
 	$(CMND) -c $^ -o $@

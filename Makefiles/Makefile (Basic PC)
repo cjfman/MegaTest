@@ -2,18 +2,18 @@
 PROJECT = TestProgram
 
 ## Source Directories
-AVRTEST_DIR = AVRTest
+MEGATEST_DIR = MegaTest
 
 ## User Sources
 SOURCES = Temp.cpp
 
 ## Compiler Flags
-CPPFLAGS = -I $(AVRTEST_DIR)/include
+CPPFLAGS = -I $(MEGATEST_DIR)/include
 CXXFLAGS = -Wall -Wextra
 FLAGS = $(CPPFLAGS) $(CXXFLAGS)
 CMND = $(CXX) $(FLAGS)
 
-all: AVRTestAll_main.o $(SOURCES)
+all: MegaTestAll_main.o $(SOURCES)
 	$(CMND) $^ -o $(PROJECT)
 
 clean:
@@ -21,8 +21,8 @@ clean:
 
 ##############################################################
 
-AVRTestAll.o: $(AVRTEST_DIR)/src/AVRTestAll.cpp
+MegaTestAll.o: $(MEGATEST_DIR)/src/MegaTestAll.cpp
 	$(CMND) -c $^ -o $@
 
-AVRTestAll_main.o: $(AVRTEST_DIR)/src/AVRTestAll_main.cpp
+MegaTestAll_main.o: $(MEGATEST_DIR)/src/MegaTestAll_main.cpp
 	$(CMND) -c $^ -o $@

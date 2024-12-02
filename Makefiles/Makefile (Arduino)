@@ -4,9 +4,9 @@ F_CPU	=	16000000UL
 # LIBS	=	ITDB02
 
 # Location of Arudino libraries
-BASE	= /AVRTest/Arduino 
-AVRTEST = /AVRTest
-# Location of AVRTest
+BASE	= /MegaTest/Arduino 
+MEGATEST = /MegaTest
+# Location of MegaTest
 
 ## DO NOT EDIT SECTION ##
 ARDUINO = $(BASE)/hardware/arduino
@@ -35,7 +35,7 @@ INCLUDES = -I $(ARDUINO)/cores/arduino \
 	-I $(LIBDIR) \
 	$(LIBS:%=-I$(LIBDIR)/%) \
 	-I $(ARDUINO)/variants/mega \
-	-I $(AVRTEST)/include \
+	-I $(MEGATEST)/include \
 	-I $(TARG_SRC) \
 	$(USER_DIRS:%=-I$(USER_DIRS)/%)
 ## END SECTION ##
@@ -64,7 +64,7 @@ CTUNING = -funsigned-char -funsigned-bitfields -fpack-struct \
 WARNINGS = -Wall
 ALLFLAGS= -Os \
 	  -mmcu=$(MCU) -DF_CPU=$(F_CPU) \
-	  -D ARDUINO=180 -D AVRTEST \
+	  -D ARDUINO=180 -D MEGATEST \
 	  $(CTUNING) \
 	  $(WARNINGS)
 CFLAGS	= $(INCLUDES) $(ALLFLAGS) 
@@ -72,7 +72,7 @@ LDFLAGS	= $(ALLFLAGS) -Wl,-gc-sections -lm
 FORMAT 	= ihex
 
 ifdef CONFIGURATION
-	ALLFLAGS += -D AVRTEST_CONFIGURATION_FILE=$(CONFIGURATION)
+	ALLFLAGS += -D MEGATEST_CONFIGURATION_FILE=$(CONFIGURATION)
 endif
 
 ALIBS	= $(LIBS:%=$(LIBDIR)/%)
@@ -87,11 +87,11 @@ SRC 	= $(wildcard $(ARDUINO)/cores/arduino/*.c) \
 	  #$(wildcard $(TARG_SRC)/*.c)
 	  
 CXXSRC	= $(SOURCES) \
-	  $(AVRTEST)/src/AVRTestAll.cpp \
+	  $(MEGATEST)/src/MegaTestAll.cpp \
 	  $(wildcard $(ARDUINO)/cores/arduino/*.cpp) \
 	  $(wildcard $(ALIBS:%=%/*.cpp))
 	  #$(wildcard $(TARG_SRC)/*.cpp) \
-	  #$(wildcard $(AVRTEST:%=%/*.cpp))
+	  #$(wildcard $(MEGATEST:%=%/*.cpp))
 
 ## DO NOT EDIT SECTION ##	  
 OBJS 	= $(SRC:.c=.c.o) $(CXXSRC:.cpp=.cpp.o)

@@ -6,13 +6,13 @@ AVRAR   = avr-ar
 OBJCOPY = avr-objcopy 
 
 ## Source Directories
-AVRTEST_DIR = AVRTest
+MEGATEST_DIR = MegaTest
 
 ## User Sources
 SOURCES = 
 
 ## Compiler Flags
-CPPFLAGS = -I $(AVRTest_DIR)/include
+CPPFLAGS = -I $(MegaTest_DIR)/include
 CXXFLAGS = -Wall -Wextra
 FLAGS = $(CPPFLAGS) $(CXXFLAGS)
 CMND = $(CXX) $(FLAGS)
@@ -25,5 +25,5 @@ clean:
 $(PROJECT).hex: $(PROJECT).out
 	$(OBJCOPY) -j .text -O ihex $^ $@
 
-$(PROJECT).out: $(SOURCES) $(AVRTEST_DIR)/src/AVRTestAll_main.cpp
+$(PROJECT).out: $(SOURCES) $(MEGATEST_DIR)/src/MegaTestAll_main.cpp
 	$(AVRCC) $(FLAGS) -o $@ $^
