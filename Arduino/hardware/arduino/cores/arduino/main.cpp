@@ -1,4 +1,4 @@
-#ifndef AVRTEST
+#ifndef MEGATEST
 
 #include <Arduino.h>
 
