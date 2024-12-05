@@ -25,13 +25,13 @@
 #include <math.h>
 #include <string.h>
 #include <inttypes.h>
-#include "MegaTest_Configuration.h"
-#include "MegaTestRegistrar.h"
-#include "MegaTest.h"
- 
-#include "MegaTestLog.h"
-#include "MegaTestCase.h"
-#include "AVRVector.h"
+#include "MegaTest_Configuration.hpp"
+#include "MegaTestRegistrar.hpp"
+#include "MegaTest.hpp"
+
+#include "MegaTestLog.hpp"
+#include "MegaTestCase.hpp"
+#include "MegaVector.hpp"
 
 
 using MegaTest::getRegistrar;
@@ -119,11 +119,11 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
 
 
 #define ASSERT_FAIL *avr_test_result = false; \
-     avrtestlog.endTest(false, "Asserted Fail");
+     megatestlog.endTest(false, "Asserted Fail");
 
 #define ASSERT_TRUE(candidate) \
     if (!candidate) { \
-        avrtestlog.endTest(false, #candidate ": Expected True"); \
+        megatestlog.endTest(false, #candidate ": Expected True"); \
 		*avr_test_result = false; \
 		return; \
 	}
@@ -131,42 +131,42 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
 #define ASSERT_FALSE(candidate) \
 	if (candidate) { \
 		*avr_test_result = false; \
-		avrtestlog.endTest(false, #candidate ": Expected False"); \
+		megatestlog.endTest(false, #candidate ": Expected False"); \
 		return; \
 	}
 
 #define ASSERT_EQUAL(act, exp) \
 	if (exp != act) { \
 		*avr_test_result = false; \
-		avrtestlog.expected(#act, exp, act); \
+		megatestlog.expected(#act, exp, act); \
 		return; \
 	}
 
 #define ASSERT_NEQUAL(act, exp) \
 	if (exp == act) { \
 		*avr_test_result = false; \
-		avrtestlog.expected(#act ": Expected Not Equal", exp, act); \
+		megatestlog.expected(#act ": Expected Not Equal", exp, act); \
 		return; \
 	}
 
 #define ASSERT_STREQUAL(act, exp) \
 	if (strcmp(exp, act)) { \
 		*avr_test_result = false; \
-		avrtestlog.expected(#act, exp, act); \
+		megatestlog.expected(#act, exp, act); \
 		return; \
 	}
 
 #define ASSERT_STRNEQUAL(act, exp) \
 	if (!strcmp(exp, act)) { \
 		*avr_test_result = false; \
-		avrtestlog.expected(#act, exp, act); \
+		megatestlog.expected(#act, exp, act); \
 		return; \
 	}
 
 #define ASSERT_FLOAT_EQUAL(act, exp) \
 	if (!MegaTest::floatCompare(exp, act)) { \
 		*avr_test_result = false; \
-		avrtestlog.expected(#act, exp, act); \
+		megatestlog.expected(#act, exp, act); \
 		return; \
 	}
 

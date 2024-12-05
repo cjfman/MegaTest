@@ -11,7 +11,7 @@
 // arduino libraries to be used for printing. Be sure to define a path to the
 // arduino libraries and to link to them in your makefile if not using the 
 // Arduino IDE. Define it as the serial port that should be used (i.e. Serial, Serial1).
-#define AVR_PRINT_ARDUINO Serial
+//#define AVR_PRINT_ARDUINO Serial
 
 // Define AVR_PRINT_ADDR when you want log messages and results to be written
 // to a specific address.

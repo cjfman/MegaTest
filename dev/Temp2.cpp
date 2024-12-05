@@ -1,4 +1,4 @@
-#include "MegaTestSuite.h"
+#include "MegaTestSuite.hpp"
 
 MEGATEST_CASE(BooleanCase)
 

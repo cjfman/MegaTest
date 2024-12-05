@@ -3,8 +3,8 @@
 #include <inttypes.h>
 #include <math.h>
 #include <string.h>
-#include "MegaTestLog.h"
-#include "MegaTest_Configuration.h"
+#include "MegaTestLog.hpp"
+#include "MegaTest_Configuration.hpp"
 
 #ifdef DESKTOP
 	#include <iostream>
@@ -37,7 +37,9 @@ void MegaTestLog::print(char c) {
 #else
 #ifdef AVR_PRINT_ARDUINO
 	AVR_PRINT_ARDUINO.print(c);
-#endif
+#else
+#error "Must define either DESKTOP or AVR_PRINT_ARDUINO"
+#endif // AVR_PRINT_ARDUINO
 #endif // DESKTOP
 }
 
@@ -257,4 +259,4 @@ void MegaTestLog::printFloat(double number, uint8_t digits)
 
 } //namespace
 
-MegaTest::MegaTestLog avrtestlog;
+MegaTest::MegaTestLog megatestlog;

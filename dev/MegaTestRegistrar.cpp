@@ -2,10 +2,10 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "MegaTestRegistrar.h"
-#include "MegaTestCase.h"
-#include "MegaTest.h"
-#include "MegaTestLog.h"
+#include "MegaTestRegistrar.hpp"
+#include "MegaTestCase.hpp"
+#include "MegaTest.hpp"
+#include "MegaTestLog.hpp"
 
 namespace MegaTest {
 
@@ -22,11 +22,11 @@ void MegaTestRegistrar::runAllTests(void) {
 	}
 	for (unsigned int i = 0; i < testCases.size(); i++) {
 		MegaTestCase testcase = testCases[i];
-		avrtestlog.startCase(testcase.getTitle());
+		megatestlog.startCase(testcase.getTitle());
 		bool res = testcase.runTests();
-		avrtestlog.endCase(res);
+		megatestlog.endCase(res);
 	}
-	avrtestlog.conclusion();
+	megatestlog.conclusion();
 }
 
 int MegaTestRegistrar::newCase(const char* title) {

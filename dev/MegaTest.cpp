@@ -2,8 +2,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "MegaTest.h"
-#include "MegaTestLog.h"
+#include "MegaTest.hpp"
+#include "MegaTestLog.hpp"
 
 namespace MegaTest {
 

@@ -1,6 +1,6 @@
 //MegaTestSuite
 
-#include "MegaTestSuite.h"
+#include "MegaTestSuite.hpp"
 
 
 /***************************************************************************

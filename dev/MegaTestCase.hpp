@@ -9,8 +9,8 @@
 #define MEGATESTCASE_h
 
 #include <inttypes.h>
-#include "MegaTest.h"
-#include "AVRVector.h"
+#include "MegaTest.hpp"
+#include "MegaVector.hpp"
 
 #ifdef DESKTOP
 #include <vector>
@@ -28,7 +28,7 @@ class MegaTestCase {
 	// stored in a dynamically allocated array.
 
 	char* title; 			// The title of the case
-	AVRVector<MegaTest*> tests; // List of tests
+	MegaVector<MegaTest*> tests; // List of tests
 
 public:
 	MegaTestCase();
@@ -39,7 +39,7 @@ public:
 	bool runTests(void);
 	uint16_t numberOfTests(void);
 	// Getters
-	inline const char* getTitle(void);
+	const char* getTitle(void);
 };
 
 } // namespace

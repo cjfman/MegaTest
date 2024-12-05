@@ -1,8 +1,8 @@
 // MegaTest
 //
-// A rapper for a user defined test. Basic tests have a title and a test 
-// funtion pointer of type testf. The function itself is defined by 
-// the user and registered by the by global test registrar. A funtion of 
+// A rapper for a user defined test. Basic tests have a title and a test
+// funtion pointer of type testf. The function itself is defined by
+// the user and registered by the by global test registrar. A funtion of
 // type testf returns void so that the user does not need to provide a
 // defaut return value. In order for a test to provide a result that is
 // not returend, a pointer of type *bool is passed as a parameter.
@@ -29,8 +29,8 @@ typedef void (*testf)(bool *);
  *
  */
 class MegaTest {
-	// NOTE: The title member leaks when destructor, copy, 
-	// or assigmnment operator are used, but this is ok, 
+	// NOTE: The title member leaks when destructor, copy,
+	// or assigmnment operator are used, but this is ok,
 	// because each object should persist until all tests
 	// are done, and assignment is only ever called once.
 	// This is done this way so that the objects can be
@@ -79,8 +79,8 @@ public:
 
 /* MegaTestFixture class
  *
- * description: A test that runs setup() before the user test and taredown 
- *              afterwards. This class should be subclassed. Any members 
+ * description: A test that runs setup() before the user test and taredown
+ *              afterwards. This class should be subclassed. Any members
  *              defined in the subclass will be available to the test.
  *              Any members defined in a subclass should either be protected
  *              or public.

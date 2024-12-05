@@ -24,10 +24,10 @@
 #define MEGATESTREGISTRAR_h
 
 #include <inttypes.h>
-#include "MegaTest.h"
-#include "MegaTestCase.h"
-#include "MegaTestLog.h"
-#include "AVRVector.h"
+#include "MegaTest.hpp"
+#include "MegaTestCase.hpp"
+#include "MegaTestLog.hpp"
+#include "MegaVector.hpp"
 
 #ifdef DESKTOP
 #include <vector>
@@ -37,7 +37,7 @@ using std::vector;
 namespace MegaTest {
 
 class MegaTestRegistrar {
-	AVRVector<MegaTestCase> testCases;		// List that contains registered cases
+	MegaVector<MegaTestCase> testCases;		// List that contains registered cases
 	MegaTestCase currentCase; 			// Test case that is being registered
 	bool caseOpen;						// Set when a case is being registered
 	uint16_t numberOfTests; 			// The total number of tests

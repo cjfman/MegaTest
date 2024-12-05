@@ -4,7 +4,7 @@
 #define MEGATESTLOG_h
 
 #include <inttypes.h>
-#include "MegaTest_Configuration.h"
+#include "MegaTest_Configuration.hpp"
 
 #ifndef AVR_PRINT_BASE
 	#ifdef AVR_PRINT_BIN
@@ -89,6 +89,6 @@ void MegaTestLog::expected(const char* var, T ex, T ac) {
 
 } // namespace
 
-extern MegaTest::MegaTestLog avrtestlog;
+extern MegaTest::MegaTestLog megatestlog;
 
 #endif // Whole File

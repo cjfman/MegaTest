@@ -1,4 +1,4 @@
-#include "MegaTestSuite.h"
+#include "MegaTestSuite.hpp"
 
 void willPass(bool* result) {
 	*result = true;

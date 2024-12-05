@@ -2,9 +2,9 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "MegaTestCase.h"
-#include "MegaTest.h"
-#include "MegaTestLog.h"
+#include "MegaTestCase.hpp"
+#include "MegaTest.hpp"
+#include "MegaTestLog.hpp"
 
 namespace MegaTest {
 
@@ -46,10 +46,10 @@ bool MegaTestCase::runTests(void) {
 	// Run though each test
 	for (unsigned int i = 0; i < tests.size(); i++) {
 		MegaTest* test = tests[i];
-		avrtestlog.startTest(test->getTitle());
+		megatestlog.startTest(test->getTitle());
 		// Run the test
 		bool result = test->runTest();
-		avrtestlog.endTest(result);
+		megatestlog.endTest(result);
 		final_result &= result;
 	}
 	return final_result;
@@ -61,7 +61,7 @@ uint16_t MegaTestCase::numberOfTests(void) {
 
 // Getters////////////////////////////
 
-inline const char* MegaTestCase::getTitle(void) {
+const char* MegaTestCase::getTitle(void) {
 	return title;
 }
 

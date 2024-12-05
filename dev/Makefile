@@ -1,12 +1,20 @@
 ## Project Settings
 PROJECT = MegaTest
+TARGET  = $(PROJECT)
 MMCU    = atmega32
 AVRCC   = avr-g++
 AVRAR   = avr-ar
 OBJCOPY = avr-objcopy
 
 ## Sources
-SOURCES = Temp2.cpp MegaTestAll_main.cpp
+MAIN = MegaTest_main.cpp
+SOURCES :=                \
+	MegaTest.cpp          \
+	MegaTestCase.cpp      \
+	MegaTestLog.cpp       \
+	MegaTestRegistrar.cpp \
+	MegaTestSuite.cpp     \
+	#Temp2.cpp             \
 
 ## Directories
 
@@ -16,7 +24,7 @@ ARDUINO_DIR = Arduino
 ## Test Compiler Flags
 CPPFLAGS = -I $(ARDUINO_DIR) #-I $(AVR_STL_DIR) 
 CXXFLAGS = -g -Wall -Wextra
-FLAGS = $(CPPFLAGS) $(CXXFLAGS)
+FLAGS = $(CPPFLAGS) $(CXXFLAGS) -DDESKTOP
 CMND = $(CXX) $(FLAGS)
 
 ## AVR Compiler Flags
@@ -31,9 +39,6 @@ run: clean all
 
 debug: clean all
 	gdb test
-
-test: Temp2.o MegaTestAll_main.o
-	$(CMND) $^ -o $@
 
 avr: avrclean $(PROJECT).hex
 
@@ -50,44 +55,39 @@ defines:
 avrdefines:
 	echo "main(){}" | $(AVRCC) $(AVRFLAGS) -E -dM -
  
+
 ####################################################################
 
-## Test Compilations
+## Basic Compilations
 
-MegaTestAll_main.o: MegaTestAll_main.cpp
-#MegaTest.o MegaTestCase.o MegaTestLog.o MegaTestRegistrar.o MegaTestSuite.o 
-	$(CMND) -c $^ -o $@
+OBJS := $(SOURCES:%.cpp=%.cpp.o) MegaTest_main.cpp.o Temp2.cpp.o 
 
-Temp2.o: Temp2.cpp
-	$(CMND) -c $^ -o $@
-
-MegaTest.o: MegaTest.cpp
-	$(CMND) -c $^ -o $@
+$(OBJS): %.cpp.o: %.cpp
+	$(CXX) $(FLAGS) -o $@ -c $^
  
-MegaTestCase.o: MegaTestCase.cpp
-	$(CMND) -c $^ -o $@
+MegaTest_run_test: $(OBJS)
+	$(CXX) $(FLAGS) $^ -o $@
 
-MegaTestLog.o: MegaTestLog.cpp
-	$(CMND) -c $^ -o $@
-
-MegaTestRegistrar.o: MegaTestRegistrar.cpp
-	$(CMND) -c $^ -o $@
-
-MegaTestSuite.o: MegaTestSuite.cpp
-	$(CMND) -c $^ -o $@
+test: MegaTest_run_test
+	./MegaTest_run_test
 
 ####################################################################
 
 ## AVR Compilations
 
-$(PROJECT).hex: $(PROJECT).out
+AVR_OBJS := $(SOURCES:%.cpp=%.cpp.avr.o)
+
+$(AVR_OBJS): %.cpp.avr.o: %.cpp
+	$(AVRGCC) -c $^ -o $@
+
+$(TARGET).hex: $(TARGET).out
 	$(OBJCOPY) -j .text -O ihex $^ $@
 
-$(PROJECT).out: $(SOURCES)
+$(TARGET).out: $(AVR_OBJS)
 	$(AVRCC) $(AVRFLAGS) -o $@ $^
 
-AVR_MegaTestAll.o: MegaTestAll.cpp
+$(TARGET): $(MAIN) $(AVR_OBJS)
 	$(AVRCC) $(AVRFLAGS) -c $^ -o $@
 
-AVR_Temp2.o: Temp2.cpp
-	$(CMND) -c $^ -o $@
+#AVR_Temp2.o: Temp2.cpp
+#	$(CMND) -c $^ -o $@
