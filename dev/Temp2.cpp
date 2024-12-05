@@ -6,12 +6,12 @@ MEGATEST(TrueExpTrue) {
 	ASSERT_TRUE(true);
 }
 
-MEGATEST(TrueVarExpFalse) {
+MEGATEST(TrueVarExpFalseShouldFail) {
 	bool var = true;
 	ASSERT_FALSE(var);
 }
 
-MEGATEST(TrueExpFalse) {
+MEGATEST(TrueExpFalseShouldFail) {
 	ASSERT_FALSE(true);
 }
 
@@ -26,6 +26,8 @@ MEGATEST(FloatEqual) {
 
 MEGATEST(FloatNEqual) {
 	ASSERT_FLOAT_EQUAL(1.2, 1.200003);	// Should pass
+}
+MEGATEST(FloatNEqualShouldFail) {
 	ASSERT_FLOAT_EQUAL(1.2, 1.2001);	// Should Fail with current settings
 }
 
@@ -37,11 +39,11 @@ MEGATEST(Same) {
 	ASSERT_EQUAL(3, 3);
 }
 
-MEGATEST(Different) {
+MEGATEST(DifferentShouldFail) {
 	ASSERT_EQUAL(3, 4);
 }
 
-MEGATEST(ShouldBeDifferent) {
+MEGATEST(ShouldBeDifferentShouldFail) {
 	ASSERT_NEQUAL(4, 4);
 }
 
@@ -62,7 +64,7 @@ MEGATEST(StringsAreDifferent) {
 	ASSERT_STRNEQUAL("Marco", "Polo");
 }
 
-MEGATEST(SringsWillFail) {
+MEGATEST(SringsShouldFail) {
 	const char *controller = "8051";
 	ASSERT_STREQUAL(controller, "AVR");
 }
@@ -95,7 +97,7 @@ MEGATESTFIX(favoriteOcean, OceanFixture) {
 	ASSERT_STREQUAL(oceans[0], "Atlantic");
 }
 
-MEGATESTFIX(oceanFail, OceanFixture) {
+MEGATESTFIX(oceanShouldFail, OceanFixture) {
 	ASSERT_STREQUAL(oceans[1], "Artic");
 }
 
