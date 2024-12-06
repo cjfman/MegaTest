@@ -93,11 +93,11 @@ private:
 
 MEGATEST_CASE(OceanCase)
 
-MEGATESTFIX(favoriteOcean, OceanFixture) {
+MEGATEST_FIX(favoriteOcean, OceanFixture) {
 	ASSERT_STREQUAL(oceans[0], "Atlantic");
 }
 
-MEGATESTFIX(oceanShouldFail, OceanFixture) {
+MEGATEST_FIX(oceanShouldFail, OceanFixture) {
 	ASSERT_STREQUAL(oceans[1], "Artic");
 }
 

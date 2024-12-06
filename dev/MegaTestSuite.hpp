@@ -66,8 +66,8 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
  *
  */
 #define MEGATEST_CASE(case_name) const uint8_t MEGA_TEST_CASE_##case_name \
-	= getRegistrar()->newCase(#case_name); \
-	namespace  MEGA_TEST_CASE_SPACE_##case_name {
+	= getRegistrar()->newCase(#case_name);                                \
+	namespace  MEGA_TEST_CASE_SPACE_##case_name {                         \
 
 /* ENDCASE macro
  *
@@ -82,35 +82,35 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
  * parameter test_name : The name of the test case.
  *						 Must contain no spaces.
  * 
- * description: Used to define a test. The macro should be 
- * 				followed by a test definition enclosed in 
+ * description: Used to define a test. The macro should be
+ * 				followed by a test definition enclosed in
  * 				{<code>}
  *
  */
-#define MEGATEST(test_name) \
-	void MEGA_TEST_##test_name(bool*); \
+#define MEGATEST(test_name)                                                               \
+	void MEGA_TEST_##test_name(bool*);                                                    \
 	MegaTest::AVRBasicTest AVR_BASIC_TEST_##test_name(#test_name, MEGA_TEST_##test_name); \
-	const uint8_t MEGA_TEST_##test_name##_ID = \
-		getRegistrar()->newTest(&AVR_BASIC_TEST_##test_name); \
-	void MEGA_TEST_##test_name(bool* avr_test_result)
+	const uint8_t MEGA_TEST_##test_name##_ID =                                            \
+		getRegistrar()->newTest(&AVR_BASIC_TEST_##test_name);                             \
+	void MEGA_TEST_##test_name(bool* avr_test_result)                                     \
 
 /* AVRTEXTFIX macro
  *
- * description: Defines a test using a test fixture 
+ * description: Defines a test using a test fixture
  *              and registers it with the global registrar
  *
  */
-#define MEGATESTFIX(test_name, fixture) \
-	class MEGA_TEST_FIXTURE_##test_name : public fixture { \
-	public: \
-		MEGA_TEST_FIXTURE_##test_name() { title = strdup(#test_name); }; \
-	private: \
-		void fixtureTest(bool*); \
-	}; \
-	MEGA_TEST_FIXTURE_##test_name avrTestFixture_##test_name; \
-	const uint8_t MEGA_TEST_##test_name##_ID = \
-		getRegistrar()->newTest(&avrTestFixture_##test_name); \
-	void MEGA_TEST_FIXTURE_##test_name::fixtureTest(bool* avr_test_result)
+#define MEGATEST_FIX(test_name, fixture)                                    \
+	class MEGA_TEST_FIXTURE_##test_name : public fixture {                 \
+	public:                                                                \
+		MEGA_TEST_FIXTURE_##test_name() { title = strdup(#test_name); };   \
+	private:                                                               \
+		void fixtureTest(bool*);                                           \
+	};                                                                     \
+	MEGA_TEST_FIXTURE_##test_name avrTestFixture_##test_name;              \
+	const uint8_t MEGA_TEST_##test_name##_ID =                             \
+		getRegistrar()->newTest(&avrTestFixture_##test_name);              \
+	void MEGA_TEST_FIXTURE_##test_name::fixtureTest(bool* avr_test_result) \
 
 
 /***************************************************************************
@@ -118,56 +118,56 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
 ***************************************************************************/
 
 
-#define ASSERT_FAIL *avr_test_result = false; \
-     megatestlog.endTest(false, "Asserted Fail");
+#define ASSERT_FAIL *avr_test_result = false;     \
+     megatestlog.endTest(false, "Asserted Fail"); \
 
-#define ASSERT_TRUE(candidate) \
-    if (!candidate) { \
+#define ASSERT_TRUE(candidate)                                    \
+    if (!(candidate)) {                                           \
         megatestlog.endTest(false, #candidate ": Expected True"); \
-		*avr_test_result = false; \
-		return; \
-	}
+		*avr_test_result = false;                                 \
+		return;                                                   \
+	}                                                             \
 
-#define ASSERT_FALSE(candidate) \
-	if (candidate) { \
-		*avr_test_result = false; \
+#define ASSERT_FALSE(candidate)                                    \
+	if ((candidate)) {                                             \
+		*avr_test_result = false;                                  \
 		megatestlog.endTest(false, #candidate ": Expected False"); \
-		return; \
-	}
+		return;                                                    \
+	}                                                              \
 
-#define ASSERT_EQUAL(act, exp) \
-	if (exp != act) { \
-		*avr_test_result = false; \
+#define ASSERT_EQUAL(act, exp)                \
+	if ((exp) != (act)) {                     \
+		*avr_test_result = false;             \
 		megatestlog.expected(#act, exp, act); \
-		return; \
-	}
+		return;                               \
+	}                                         \
 
-#define ASSERT_NEQUAL(act, exp) \
-	if (exp == act) { \
-		*avr_test_result = false; \
+#define ASSERT_NEQUAL(act, exp)                                      \
+	if ((exp) == (act)) {                                            \
+		*avr_test_result = false;                                    \
 		megatestlog.expected(#act ": Expected Not Equal", exp, act); \
-		return; \
-	}
+		return;                                                      \
+	}                                                                \
 
-#define ASSERT_STREQUAL(act, exp) \
-	if (strcmp(exp, act)) { \
-		*avr_test_result = false; \
+#define ASSERT_STREQUAL(act, exp)             \
+	if (strcmp(exp, act)) {                   \
+		*avr_test_result = false;             \
 		megatestlog.expected(#act, exp, act); \
-		return; \
-	}
+		return;                               \
+	}                                         \
 
-#define ASSERT_STRNEQUAL(act, exp) \
-	if (!strcmp(exp, act)) { \
-		*avr_test_result = false; \
+#define ASSERT_STRNEQUAL(act, exp)            \
+	if (!strcmp(exp, act)) {                  \
+		*avr_test_result = false;             \
 		megatestlog.expected(#act, exp, act); \
-		return; \
-	}
+		return;                               \
+	}                                         \
 
-#define ASSERT_FLOAT_EQUAL(act, exp) \
-	if (!MegaTest::floatCompare(exp, act)) { \
-		*avr_test_result = false; \
+#define ASSERT_FLOAT_EQUAL(act, exp)          \
+	if (!MegaTest::floatCompare(exp, act)) {  \
+		*avr_test_result = false;             \
 		megatestlog.expected(#act, exp, act); \
-		return; \
-	}
+		return;                               \
+	}                                         \
 
 #endif // Whole file
