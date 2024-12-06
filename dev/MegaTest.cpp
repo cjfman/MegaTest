@@ -43,15 +43,15 @@ bool MegaTest::runTest(void) {
 #endif
 
 
-// AVRBasicTest //////////////////////////////////////////////////////////////////
+// MegaBasicTest //////////////////////////////////////////////////////////////////
 
-AVRBasicTest::AVRBasicTest(const char* title, testf test)
+MegaBasicTest::MegaBasicTest(const char* title, testf test)
   : MegaTest(title),
     test(test)
 {
 }
 
-bool AVRBasicTest::runTest(void) {
+bool MegaBasicTest::runTest(void) {
     // Run the test
     // Create a boolean and pass its address to the test function
     // If needed, the test function will change the bool's value

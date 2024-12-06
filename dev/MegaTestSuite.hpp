@@ -87,12 +87,12 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
  *              {<code>}
  *
  */
-#define MEGATEST(test_name)                                                               \
-    void MEGA_TEST_##test_name(bool*);                                                    \
-    MegaTest::AVRBasicTest AVR_BASIC_TEST_##test_name(#test_name, MEGA_TEST_##test_name); \
-    const uint8_t MEGA_TEST_##test_name##_ID =                                            \
-        getRegistrar()->newTest(&AVR_BASIC_TEST_##test_name);                             \
-    void MEGA_TEST_##test_name(bool* avr_test_result)                                     \
+#define MEGATEST(test_name)                                                                 \
+    void MEGA_TEST_##test_name(bool*);                                                      \
+    MegaTest::MegaBasicTest MEGA_BASIC_TEST_##test_name(#test_name, MEGA_TEST_##test_name); \
+    const uint8_t MEGA_TEST_##test_name##_ID =                                              \
+        getRegistrar()->newTest(&MEGA_BASIC_TEST_##test_name);                              \
+    void MEGA_TEST_##test_name(bool* avr_test_result)                                       \
 
 /* AVRTEXTFIX macro
  *

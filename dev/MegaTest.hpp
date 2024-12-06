@@ -58,18 +58,18 @@ public:
 };
 
 
-/* AVRBasicTest class
+/* MegaBasicTest class
  *
  * description: A basic test that uses a function pointer to point to the user
  *              test.
  *
  */
-class AVRBasicTest : public MegaTest {
+class MegaBasicTest : public MegaTest {
 protected:
     testf test;     // The pointer to the test function
 
 public:
-    AVRBasicTest(const char* title, testf newTest);
+    MegaBasicTest(const char* title, testf newTest);
 
     // Methods
     bool runTest(void); // Runs the test and returns whether
