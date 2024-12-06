@@ -23,7 +23,7 @@ ARDUINO_DIR = Arduino
 
 ## Test Compiler Flags
 CPPFLAGS = -I $(ARDUINO_DIR) #-I $(AVR_STL_DIR) 
-CXXFLAGS = -g -Wall -Wextra
+CXXFLAGS = -g -Wall -Wextra -Wc++11-extensions
 FLAGS = $(CPPFLAGS) $(CXXFLAGS) -DDESKTOP
 CMND = $(CXX) $(FLAGS)
 

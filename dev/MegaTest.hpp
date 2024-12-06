@@ -29,31 +29,31 @@ typedef void (*testf)(bool *);
  *
  */
 class MegaTest {
-	// NOTE: The title member leaks when destructor, copy,
-	// or assigmnment operator are used, but this is ok,
-	// because each object should persist until all tests
-	// are done, and assignment is only ever called once.
-	// This is done this way so that the objects can be
-	// stored in a dynamically allocated array.
+    // NOTE: The title member leaks when destructor, copy,
+    // or assigmnment operator are used, but this is ok,
+    // because each object should persist until all tests
+    // are done, and assignment is only ever called once.
+    // This is done this way so that the objects can be
+    // stored in a dynamically allocated array.
 
 protected:
-	char* title;	// The title of the test
+    const char* title;  // The title of the test
 
 public:
-	MegaTest();
-	MegaTest(const char* title); //, testf newTest);
-	~MegaTest();
-	MegaTest& operator=(const MegaTest& other);
+    MegaTest();
+    MegaTest(const char* title);
+    ~MegaTest();
+    MegaTest& operator=(const MegaTest& other);
 
-	// Getters
-	const char* getTitle(void);
+    // Getters
+    const char* getTitle(void) const { return this->title; }
 
-	// Methods
+    // Methods
 #ifdef __AVR
-	virtual bool runTest(void);	// Runs the test and returns whether
-								// it passed or not.
+    virtual bool runTest(void); // Runs the test and returns whether
+                                // it passed or not.
 #else
-	virtual bool runTest(void) = 0;
+    virtual bool runTest(void) = 0;
 #endif
 };
 
@@ -66,14 +66,14 @@ public:
  */
 class AVRBasicTest : public MegaTest {
 protected:
-	testf test;		// The pointer to the test function
+    testf test;     // The pointer to the test function
 
 public:
-	AVRBasicTest(const char* title, testf newTest);
+    AVRBasicTest(const char* title, testf newTest);
 
-	// Methods
-	bool runTest(void);	// Runs the test and returns whether
-						// it passed or not.
+    // Methods
+    bool runTest(void); // Runs the test and returns whether
+                        // it passed or not.
 };
 
 
@@ -88,13 +88,13 @@ public:
  */
 class MegaTestFixture : public MegaTest {
 public:
-	MegaTestFixture();
-	virtual bool runTest(void);
+    MegaTestFixture();
+    virtual bool runTest(void);
 
 private:
-	virtual void fixtureTest(bool*);
-	virtual void setup(void);
-	virtual void taredown(void);
+    virtual void fixtureTest(bool*);
+    virtual void setup(void);
+    virtual void taredown(void);
 };
 
 } // namespace
