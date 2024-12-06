@@ -92,7 +92,7 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
     MegaTest::MegaBasicTest MEGA_BASIC_TEST_##test_name(#test_name, MEGA_TEST_##test_name); \
     const uint8_t MEGA_TEST_##test_name##_ID =                                              \
         getRegistrar()->newTest(&MEGA_BASIC_TEST_##test_name);                              \
-    void MEGA_TEST_##test_name(bool* avr_test_result)                                       \
+    void MEGA_TEST_##test_name(bool* mega_test_result)                                       \
 
 /* AVRTEXTFIX macro
  *
@@ -110,7 +110,7 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
     MEGA_TEST_FIXTURE_##test_name avrTestFixture_##test_name;              \
     const uint8_t MEGA_TEST_##test_name##_ID =                             \
         getRegistrar()->newTest(&avrTestFixture_##test_name);              \
-    void MEGA_TEST_FIXTURE_##test_name::fixtureTest(bool* avr_test_result) \
+    void MEGA_TEST_FIXTURE_##test_name::fixtureTest(bool* mega_test_result) \
 
 
 /***************************************************************************
@@ -118,54 +118,54 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
 ***************************************************************************/
 
 
-#define ASSERT_FAIL *avr_test_result = false;     \
+#define ASSERT_FAIL *mega_test_result = false;    \
      megatestlog.endTest(false, "Asserted Fail"); \
 
 #define ASSERT_TRUE(candidate)                                    \
     if (!(candidate)) {                                           \
         megatestlog.endTest(false, #candidate ": Expected True"); \
-        *avr_test_result = false;                                 \
+        *mega_test_result = false;                                \
         return;                                                   \
     }                                                             \
 
 #define ASSERT_FALSE(candidate)                                    \
     if ((candidate)) {                                             \
-        *avr_test_result = false;                                  \
+        *mega_test_result = false;                                 \
         megatestlog.endTest(false, #candidate ": Expected False"); \
         return;                                                    \
     }                                                              \
 
 #define ASSERT_EQUAL(act, exp)                \
     if ((exp) != (act)) {                     \
-        *avr_test_result = false;             \
+        *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
 
 #define ASSERT_NEQUAL(act, exp)                                      \
     if ((exp) == (act)) {                                            \
-        *avr_test_result = false;                                    \
+        *mega_test_result = false;                                   \
         megatestlog.expected(#act ": Expected Not Equal", exp, act); \
         return;                                                      \
     }                                                                \
 
 #define ASSERT_STREQUAL(act, exp)             \
     if (strcmp(exp, act)) {                   \
-        *avr_test_result = false;             \
+        *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
 
 #define ASSERT_STRNEQUAL(act, exp)            \
     if (!strcmp(exp, act)) {                  \
-        *avr_test_result = false;             \
+        *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
 
 #define ASSERT_FLOAT_EQUAL(act, exp)          \
     if (!MegaTest::floatCompare(exp, act)) {  \
-        *avr_test_result = false;             \
+        *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \

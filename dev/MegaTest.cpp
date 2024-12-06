@@ -77,8 +77,8 @@ bool MegaTestFixture::runTest(void) {
 
 // Private Methods
 
-void MegaTestFixture::fixtureTest(bool* avr_test_result) {
-    *avr_test_result = true;
+void MegaTestFixture::fixtureTest(bool* mega_test_result) {
+    *mega_test_result = true;
 }
 
 void MegaTestFixture::setup(void) {
