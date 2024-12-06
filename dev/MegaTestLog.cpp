@@ -7,8 +7,8 @@
 #include "MegaTest_Configuration.hpp"
 
 #ifdef DESKTOP
-	#include <iostream>
-	using std::cout;
+    #include <iostream>
+    using std::cout;
 #else
 #ifdef AVR_PRINT_ARDUINO
 #include <HardwareSerial.cpp>
@@ -20,23 +20,23 @@
 namespace MegaTest {
 
 MegaTestLog::MegaTestLog() {
-	testOpen = false;
-	caseOpen = false;
-	failed_cases = 0;
-	failed_tests = 0;
+    testOpen = false;
+    caseOpen = false;
+    failed_cases = 0;
+    failed_tests = 0;
 #ifndef DESKTOP
 #ifdef AVR_PRINT_ARDUINO
-	AVR_PRINT_ARDUINO.begin(AVR_PRINT_BAUD);
+    AVR_PRINT_ARDUINO.begin(AVR_PRINT_BAUD);
 #endif
 #endif // DESKTOP
 }
 
 void MegaTestLog::print(char c) {
 #ifdef DESKTOP
-	cout << c;
+    cout << c;
 #else
 #ifdef AVR_PRINT_ARDUINO
-	AVR_PRINT_ARDUINO.print(c);
+    AVR_PRINT_ARDUINO.print(c);
 #else
 #error "Must define either DESKTOP or AVR_PRINT_ARDUINO"
 #endif // AVR_PRINT_ARDUINO
@@ -45,132 +45,133 @@ void MegaTestLog::print(char c) {
 
 void MegaTestLog::print(const char* message) {
 #ifdef DESKTOP
-	cout << message;
+    cout << message;
 #elif defined AVR_PRINT_ARDUINO
-	AVR_PRINT_ARDUINO.print(message);
+    AVR_PRINT_ARDUINO.print(message);
 #else
-	size_t len = strlen(message);
-	for (unsigned int i = 0; i < len; i++) {
-		print(message[i]);
-	}
+    size_t len = strlen(message);
+    for (unsigned int i = 0; i < len; i++) {
+        print(message[i]);
+    }
 #endif
 }
 
 void MegaTestLog::print(unsigned char c) {
-	print((unsigned long) c);
+    print((unsigned long) c);
 }
 
 void MegaTestLog::print(int i) {
-	print((long) i);
+    print((long) i);
 }
 
 void MegaTestLog::print(unsigned i) {
-	print((unsigned long) i);
+    print((unsigned long) i);
 }
 
 void MegaTestLog::print(long l) {
 #ifdef AVR_PRINT_SIGNED_DEC
-	if (l < 0) {
-		print('-');
-	}
-	printNumber(l, 10);
+    if (l < 0) {
+        print('-');
+    }
+    printNumber(l, 10);
 #else
-	printNumber(l, AVR_PRINT_BASE));
+    printNumber(l, AVR_PRINT_BASE));
 #endif
 }
 
 void MegaTestLog::print(unsigned long l) {
-	printNumber(l, AVR_PRINT_BASE);
+    printNumber(l, AVR_PRINT_BASE);
 }
 
 void MegaTestLog::print(double d) {
-	printFloat(d, AVR_FLOAT_POINTS);
+    printFloat(d, AVR_FLOAT_POINTS);
 }
 
 void MegaTestLog::log(const char* message) {
-	print(message);
-	print(AVR_PRINT_NL);
+    print(message);
+    print(AVR_PRINT_NL);
 }
 
 void MegaTestLog::nl(void) {
-	print(AVR_PRINT_NL);
+    print(AVR_PRINT_NL);
 }
 
 
 //Test Result Log Methods///////////////////////////////
 
 void MegaTestLog::startCase(const char* name) {
-	if (caseOpen) {
-		nl();
-	}
-	caseOpen = true;
-	log(name);
+    if (caseOpen) {
+        nl();
+    }
+    caseOpen = true;
+    log(name);
 }
 
 void MegaTestLog::endCase(bool res) {
-	if (!caseOpen) return;
-	if (res) {
-		log("Case Passed");
-	}
-	else {
-		print("Case Failed: ");
-		print(failed_tests);
-		log(" tests");
-		failed_tests = 0;
-		failed_cases++;
-	}
-	caseOpen = false;
-	nl();
+    if (!caseOpen) return;
+    if (res) {
+        log("Case Passed");
+    }
+    else {
+        print("Case Failed: ");
+        print(failed_tests);
+        log(" tests");
+        failed_tests = 0;
+        failed_cases++;
+    }
+    caseOpen = false;
+    nl();
 }
 
 void MegaTestLog::startTest(const char* name) {
-	print(name);
-	int dots = 32 - strlen(name);
-	dots = (dots > 3) ? dots : 3;
-	for (int i = 0; i < dots; i++) {
-		print('.');
-	}
-	testOpen = true;
+    print(name);
+    int dots = 32 - strlen(name);
+    dots = (dots > 3) ? dots : 3;
+    for (int i = 0; i < dots; i++) {
+        print('.');
+    }
+    testOpen = true;
 }
 
 void MegaTestLog::endTest(bool res) {
-	if (!testOpen) return;
-	if (res) {
-		log("passed");
-	}
-	else {
-		testFailed();
-	}
-	testOpen = false;
+    if (!testOpen) return;
+    if (res) {
+        log("passed");
+    }
+    else {
+        testFailed();
+    }
+    testOpen = false;
 }
 
 void MegaTestLog::endTest(bool res, const char* message) {
-	if (!testOpen) return;
-	if (res) {
-		log("passed");
-	}
-	else {
-		testFailed();
-	}
-	print("> ");
-	log(message);
-	testOpen = false;
+    if (testOpen) {
+        if (res) {
+            log("passed");
+        }
+        else {
+            testFailed();
+        }
+        testOpen = false;
+    }
+    print("> ");
+    log(message);
 }
 
 void MegaTestLog::testFailed(void) {
-	log("FAILED");
-	failed_tests++;
+    log("FAILED");
+    failed_tests++;
 }
 
 void MegaTestLog::conclusion(void) {
-	if (failed_cases) {
-		print("FAILED: ");
-		print(failed_cases);
-		log(" cases");
-	}
-	else {
-		log("Passed");
-	}
+    if (failed_cases) {
+        print("FAILED: ");
+        print(failed_cases);
+        log(" cases");
+    }
+    else {
+        log("Passed");
+    }
 }
 
 //private//////////////////////////////////////////////
@@ -178,13 +179,13 @@ void MegaTestLog::conclusion(void) {
 /*
 void MegaTestLog::write(char c) {
 #ifdef DESKTOP
-	cout << c;
+    cout << c;
 #endif
 }
 
 void MegaTestLog::write(const char* message) {
 #ifdef DESKTOP
-	cout << message;
+    cout << message;
 #endif
 }
 //*/
@@ -221,7 +222,7 @@ void MegaTestLog::printFloat(double number, uint8_t digits)
   if (number < 0.0)
   {
      //n += 
-  	 print('-');
+     print('-');
      number = -number;
   }
 

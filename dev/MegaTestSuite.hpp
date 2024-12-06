@@ -121,53 +121,81 @@ bool AlmostEqualRelativeOrAbsolute(float A, float B,
 #define ASSERT_FAIL *mega_test_result = false;    \
      megatestlog.endTest(false, "Asserted Fail"); \
 
-#define ASSERT_TRUE(candidate)                                    \
+#define EXPECT_TRUE(candidate)                                    \
     if (!(candidate)) {                                           \
         megatestlog.endTest(false, #candidate ": Expected True"); \
         *mega_test_result = false;                                \
         return;                                                   \
     }                                                             \
 
-#define ASSERT_FALSE(candidate)                                    \
+#define EXPECT_FALSE(candidate)                                    \
     if ((candidate)) {                                             \
         *mega_test_result = false;                                 \
         megatestlog.endTest(false, #candidate ": Expected False"); \
         return;                                                    \
     }                                                              \
 
-#define ASSERT_EQUAL(act, exp)                \
+#define EXPECT_EQUAL(act, exp)                \
     if ((exp) != (act)) {                     \
         *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
 
-#define ASSERT_NEQUAL(act, exp)                                      \
+#define EXPECT_NEQUAL(act, exp)                                      \
     if ((exp) == (act)) {                                            \
         *mega_test_result = false;                                   \
         megatestlog.expected(#act ": Expected Not Equal", exp, act); \
         return;                                                      \
     }                                                                \
 
-#define ASSERT_STREQUAL(act, exp)             \
+#define EXPECT_STREQUAL(act, exp)             \
     if (strcmp(exp, act)) {                   \
         *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
 
-#define ASSERT_STRNEQUAL(act, exp)            \
+#define EXPECT_STRNEQUAL(act, exp)            \
     if (!strcmp(exp, act)) {                  \
         *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
 
-#define ASSERT_FLOAT_EQUAL(act, exp)          \
+#define EXPECT_FLOAT_EQUAL(act, exp)          \
     if (!MegaTest::floatCompare(exp, act)) {  \
         *mega_test_result = false;            \
         megatestlog.expected(#act, exp, act); \
         return;                               \
     }                                         \
+
+#define ASSERT_TRUE(candidate)      \
+    EXPECT_TRUE(candidate);         \
+    if (!*mega_test_result) return; \
+
+#define ASSERT_FALSE(candidate)     \
+    EXPECT_FALSE(candidate);        \
+    if (!*mega_test_result) return; \
+
+#define ASSERT_EQUAL(act, exp)      \
+    EXPECT_EQUAL(act, exp);         \
+    if (!*mega_test_result) return; \
+
+#define ASSERT_NEQUAL(act, exp)     \
+    EXPECT_NEQUAL(act, exp);        \
+    if (!*mega_test_result) return; \
+
+#define ASSERT_STREQUAL(act, exp)   \
+    EXPECT_STREQUAL(act, exp);      \
+    if (!*mega_test_result) return; \
+
+#define ASSERT_STRNEQUAL(act, exp)  \
+    EXPECT_STRNEQUAL(act, exp);     \
+    if (!*mega_test_result) return; \
+
+#define ASSERT_FLOAT_EQUAL(act, exp) \
+    EXPECT_FLOAT_EQUAL(act, exp);    \
+    if (!*mega_test_result) return;  \
 
 #endif // Whole file
